@@ -131,17 +131,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 /*=========================================
-    HERO PARALLAX
-=========================================*/
-const hero = document.querySelector(".hero");
-document.addEventListener("mousemove", (e) => {
-    if(!hero) return;
-    const x = (window.innerWidth / 2 - e.clientX) / 35;
-    const y = (window.innerHeight / 2 - e.clientY) / 35;
-    hero.style.transform =
-        `translate(${x}px, ${y}px)`;
-});
-/*=========================================
     MAGNETIC BUTTONS
 =========================================*/
 const buttons = document.querySelectorAll(
