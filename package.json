@@ -1,0 +1,31 @@
+{
+  "dependencies": {
+    "axios": "^1.18.1",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "firebase": "^12.16.0",
+    "fs": "^0.0.1-security",
+    "openai": "^6.48.0",
+    "pdfkit": "^0.19.1"
+  },
+  "name": "agentx-startup-builder",
+  "version": "1.0.0",
+  "description": "AI-powered multi-agent platform that transforms a single startup idea into a complete business—market research, branding, business plan, financial projections, marketing strategy, and more.",
+  "main": "Branding.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aaryak537/AgentX-Startup-Builder.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/aaryak537/AgentX-Startup-Builder/issues"
+  },
+  "homepage": "https://github.com/aaryak537/AgentX-Startup-Builder#readme"
+}
