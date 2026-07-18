@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Branding Studio | AgentX</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="workspace.css">
+</head>
+<body class="workspace-body">
+
+<div class="workspace-shell">
+
+    <aside class="ws-sidebar">
+        <div class="logo-circle"></div>
+        <nav class="ws-nav">
+            <a href="overview.html"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg><span class="tip">Overview</span></a>
+            <a href="dashboard.html"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span class="tip">Multi-Agent Dashboard</span></a>
+            <a href="branding.html" class="active"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="8.5" cy="10.5" r="1.2" fill="currentColor"/><circle cx="12" cy="8" r="1.2" fill="currentColor"/><circle cx="15.5" cy="10.5" r="1.2" fill="currentColor"/></svg><span class="tip">Branding Studio</span></a>
+            <a href="financial.html"><svg viewBox="0 0 24 24"><path d="M4 20V10"/><path d="M11 20V4"/><path d="M18 20v-7"/></svg><span class="tip">Business Plan &amp; Financials</span></a>
+            <a href="kit.html"><svg viewBox="0 0 24 24"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg><span class="tip">Startup Kit</span></a>
+        </nav>
+        <a href="landingPage.html" class="ws-logout" title="Back to home">
+            <svg viewBox="0 0 24 24"><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/></svg>
+        </a>
+    </aside>
+
+    <main class="ws-main">
+
+        <div class="ws-topbar">
+            <div>
+                <h1>Branding studio</h1>
+                <span class="idea-chip"><span class="dot"></span> <span data-startup-name>Startup</span></span>
+            </div>
+            <div class="ws-actions">
+                <a href="financial.html" class="ws-pill-btn">← Business Plan</a>
+                <a href="kit.html" class="ws-pill-btn primary">Startup Kit →</a>
+            </div>
+        </div>
+
+        <div class="tab-row" id="tabRow">
+            <button class="active" data-tab="identity">Brand Identity</button>
+            <button data-tab="palette">Color Palette</button>
+            <button data-tab="type">Typography</button>
+            <button data-tab="voice">Brand Voice</button>
+        </div>
+
+        <div class="brand-layout">
+
+            <!-- LEFT: tab content -->
+            <div>
+                <div id="tab-identity">
+                    <div class="panel" style="margin-bottom:16px">
+                        <div class="panel-head"><h3>AI-generated logo</h3></div>
+                        <div class="brand-logo-block" id="logoBlock">
+                            <div style="text-align:center">
+                                <div id="logoInitialsBig" style="font-size:2.4rem;font-weight:800">XX</div>
+                                <div id="logoNameBig" style="font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:.85rem;opacity:.85">Startup Name</div>
+                            </div>
+                        </div>
+                        <div class="panel-head" style="margin-bottom:8px"><h3 style="font-size:.8rem">Logo variations</h3></div>
+                        <div class="variation-row" id="variationRow"></div>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-head"><h3>Business card</h3></div>
+                        <div class="biz-card" id="bizCard">
+                            <div class="name" id="bizCardName">Startup Name</div>
+                            <div class="contact">
+                                Founder<br>
+                                <span id="bizCardEmail">founder@startup.com</span><br>
+                                +91 00000 00000
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-palette" style="display:none">
+                    <div class="panel">
+                        <div class="panel-head"><h3>Color palette</h3><span class="muted">AI-selected for your category</span></div>
+                        <div class="swatches" id="swatches"></div>
+                    </div>
+                </div>
+
+                <div id="tab-type" style="display:none">
+                    <div class="panel">
+                        <div class="panel-head"><h3>Typography</h3></div>
+                        <div class="type-sample" style="font-family:'Playfair Display',serif">
+                            <div class="display">Aa — Heading Display</div>
+                        </div>
+                        <div class="type-sample" style="font-family:'Poppins',sans-serif;margin-top:14px">
+                            <div class="body">Aa — Body text set in Poppins. This is how paragraphs, descriptions and UI copy will read across the brand.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-voice" style="display:none">
+                    <div class="panel">
+                        <div class="panel-head"><h3>Brand voice</h3></div>
+                        <p style="font-size:.85rem;color:var(--text-dim);margin-bottom:14px" id="voiceTagline">Tagline</p>
+                        <div class="chip-row" id="voiceAdjectives"></div>
+                        <div class="panel-head" style="margin-top:18px"><h3 style="font-size:.8rem">Sample social caption</h3></div>
+                        <p style="font-size:.85rem;color:var(--text-dim)" id="voiceCaption">Caption</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT: always-visible previews -->
+            <div>
+                <div class="panel" style="margin-bottom:16px">
+                    <div class="panel-head"><h3>Social media preview</h3></div>
+                    <div id="socialPreview" style="border-radius:var(--radius-sm);overflow:hidden;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;text-align:center;padding:14px">
+                        <div id="socialHeadline" style="font-weight:700;font-size:1.1rem">Headline</div>
+                        <div style="font-size:.75rem;opacity:.8" id="socialSub">Subtitle</div>
+                    </div>
+                </div>
+                <div class="panel">
+                    <div class="panel-head"><h3>Website theme preview</h3></div>
+                    <div id="websitePreview" style="border-radius:var(--radius-sm);overflow:hidden;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;padding:16px;text-align:center">
+                        <div>
+                            <div id="webHeadline" style="font-weight:800;font-size:1.15rem;font-family:'Playfair Display',serif">Headline</div>
+                            <div style="font-size:.7rem;margin-top:8px;padding:8px 16px;border-radius:999px;display:inline-block" id="webCta">Shop Now</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<script src="engine.js"></script>
+<script>
+(function () {
+    const s = AgentX.loadStartup();
+    AgentX.paintTopbarMeta(s);
+    const p = s.palette;
+
+    document.getElementById("logoBlock").style.background = `linear-gradient(135deg, ${p[0]}, ${p[1]})`;
+    document.getElementById("logoInitialsBig").textContent = s.initials;
+    document.getElementById("logoNameBig").textContent = s.name;
+
+    const variants = [
+        { bg: p[0], text: "#fff" },
+        { bg: p[2] || "#fff", text: p[3] || "#111" },
+        { bg: "transparent", text: p[0], border: `1px solid ${p[0]}` },
+    ];
+    document.getElementById("variationRow").innerHTML = variants.map(v => `
+        <div class="v-card" style="background:${v.bg};color:${v.text};${v.border ? 'border:'+v.border : ''}">${s.initials}</div>
+    `).join("");
+
+    document.getElementById("bizCard").style.background = `linear-gradient(135deg, ${p[0]}, ${p[1]})`;
+    document.getElementById("bizCardName").textContent = s.name;
+    document.getElementById("bizCardEmail").textContent = "founder@" + s.name.toLowerCase().replace(/\s+/g, "") + ".com";
+
+    document.getElementById("swatches").innerHTML = p.map(hex => `
+        <div class="swatch" style="background:${hex}"><span>${hex}</span></div>
+    `).join("");
+
+    document.getElementById("voiceTagline").textContent = `"${s.tagline}"`;
+    const adjectives = { food: ["Warm", "Handcrafted", "Honest", "Inviting"], tech: ["Sharp", "Fast", "Reliable", "Ambitious"],
+        health: ["Caring", "Trustworthy", "Calm", "Precise"], fashion: ["Bold", "Refined", "Expressive", "Modern"],
+        fintech: ["Secure", "Clear", "Confident", "Smart"], education: ["Encouraging", "Clear", "Curious", "Supportive"],
+        travel: ["Adventurous", "Easygoing", "Curious", "Open"], eco: ["Grounded", "Hopeful", "Responsible", "Fresh"],
+        generic: ["Ambitious", "Clear", "Modern", "Dependable"] }[s.category] || ["Ambitious", "Clear", "Modern", "Dependable"];
+    document.getElementById("voiceAdjectives").innerHTML = adjectives.map(a => `<span class="chip">${a}</span>`).join("");
+    document.getElementById("voiceCaption").textContent = `${s.icon} Introducing ${s.name} — ${s.tagline} Follow along as we build something people actually want.`;
+
+    document.getElementById("socialPreview").style.background = `linear-gradient(135deg, ${p[0]}, ${p[1]})`;
+    document.getElementById("socialHeadline").textContent = s.name;
+    document.getElementById("socialSub").textContent = s.tagline;
+
+    document.getElementById("websitePreview").style.background = p[2] || "#f5f3ee";
+    document.getElementById("websitePreview").style.color = p[3] || "#111";
+    document.getElementById("webHeadline").textContent = s.tagline;
+    document.getElementById("webCta").style.background = p[0];
+    document.getElementById("webCta").style.color = "#fff";
+    document.getElementById("webCta").textContent = "Explore " + s.name;
+
+    const tabs = document.querySelectorAll("#tabRow button");
+    const panels = { identity: "tab-identity", palette: "tab-palette", type: "tab-type", voice: "tab-voice" };
+    tabs.forEach(btn => {
+        btn.addEventListener("click", () => {
+            tabs.forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            Object.values(panels).forEach(id => document.getElementById(id).style.display = "none");
+            document.getElementById(panels[btn.dataset.tab]).style.display = "block";
+        });
+    });
+})();
+</script>
+</body>
+</html>

@@ -12,6 +12,7 @@
 
         <!-- SAME CSS FOR ALL PAGES -->
         <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="engine.css">
     </head>
     <body>
         <!-- ================= NAVBAR ================= -->
@@ -83,8 +84,8 @@
                                 placeholder="Confirm password"
                                 required>
                         </div>
-                        <button class="btn-primary auth-btn">
-                            Create Account
+                        <button class="btn-primary auth-btn"><a href="dashboard.html">
+                            Create Account</a>
                         </button>
                     </form>
                     <div class="divider">
@@ -97,12 +98,14 @@
                     </button>
                     <p class="auth-footer">
                         Already have an account?
-                        <a href="login.html">
+                        <a href="loginPage.html">
                             Login
                         </a>
                     </p>
                 </div>
             </div>
         </section>
+        <script src="script.js"></script>
+        <script src="engine.js"></script>
     </body>
 </html>

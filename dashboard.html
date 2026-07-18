@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multi-Agent Dashboard | AgentX</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="workspace.css">
+</head>
+<body class="workspace-body">
+
+<div class="workspace-shell">
+
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="ws-sidebar">
+        <div class="logo-circle"></div>
+        <nav class="ws-nav">
+            <a href="overview.html"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg><span class="tip">Overview</span></a>
+            <a href="dashboard.html" class="active"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span class="tip">Multi-Agent Dashboard</span></a>
+            <a href="branding.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="8.5" cy="10.5" r="1.2" fill="currentColor"/><circle cx="12" cy="8" r="1.2" fill="currentColor"/><circle cx="15.5" cy="10.5" r="1.2" fill="currentColor"/></svg><span class="tip">Branding Studio</span></a>
+            <a href="financial.html"><svg viewBox="0 0 24 24"><path d="M4 20V10"/><path d="M11 20V4"/><path d="M18 20v-7"/></svg><span class="tip">Business Plan &amp; Financials</span></a>
+            <a href="kit.html"><svg viewBox="0 0 24 24"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg><span class="tip">Startup Kit</span></a>
+        </nav>
+        <a href="landingPage.html" class="ws-logout" title="Back to home">
+            <svg viewBox="0 0 24 24"><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/></svg>
+        </a>
+    </aside>
+
+    <!-- ================= MAIN ================= -->
+    <main class="ws-main">
+
+        <div class="ws-topbar">
+            <div>
+                <h1>Welcome back, Founder 👋</h1>
+                <span class="idea-chip"><span class="dot"></span> <span data-startup-idea>“your idea”</span></span>
+            </div>
+            <div class="ws-actions">
+                <div class="ring" id="overallRing"><span id="overallPct">0%</span></div>
+                <a href="overview.html" class="ws-pill-btn primary" id="viewReportBtn">View Full Report →</a>
+            </div>
+        </div>
+
+        <div class="agent-flow" id="agentRowTop"></div>
+        <div class="agent-flow-row2" id="agentRowBottom"></div>
+
+        <div class="live-banner" id="liveBanner"><span class="dot-pulse"></span>Agents collaborating in real-time</div>
+
+    </main>
+</div>
+
+<script src="engine.js"></script>
+<script>
+(function () {
+    const startup = AgentX.loadStartup();
+    AgentX.paintTopbarMeta(startup);
+
+    const AGENTS = [
+        { key: "market", name: "Market Research", icon: "🔍", color: "var(--green)", bg: "var(--green-soft)" },
+        { key: "branding", name: "Branding Agent", icon: "🎨", color: "var(--red, #f87171)", bg: "rgba(248,113,113,.14)" },
+        { key: "plan", name: "Business Plan Agent", icon: "📋", color: "var(--purple)", bg: "var(--purple-soft)" },
+        { key: "finance", name: "Finance Agent", icon: "💰", color: "var(--amber)", bg: "var(--amber-soft)" },
+        { key: "marketing", name: "Marketing Agent", icon: "📣", color: "var(--purple)", bg: "var(--purple-soft)" },
+        { key: "social", name: "Social Media Agent", icon: "#️⃣", color: "var(--blue)", bg: "var(--blue-soft)" },
+        { key: "website", name: "Website Builder Agent", icon: "🌐", color: "var(--blue)", bg: "var(--blue-soft)" },
+    ];
+
+    const progress = AgentX.getProgress();
+    AGENTS.forEach((a, i) => { if (progress[a.key] === undefined) progress[a.key] = 0; });
+
+    const topRow = document.getElementById("agentRowTop");
+    const bottomRow = document.getElementById("agentRowBottom");
+
+    function cardHTML(a) {
+        return `
+        <div class="agent-card" id="card-${a.key}">
+            <div class="agent-top">
+                <div class="agent-icon" style="background:${a.bg}">${a.icon}</div>
+                <div>
+                    <div class="agent-name">${a.name}</div>
+                    <span class="status waiting" id="status-${a.key}">⏳ Queued</span>
+                </div>
+            </div>
+            <div class="bar-track"><div class="bar-fill" id="bar-${a.key}" style="width:0%"></div></div>
+            <div class="agent-pct"><span id="pct-${a.key}">0%</span><span>${a.name.split(" ")[0]}</span></div>
+        </div>`;
+    }
+
+    AGENTS.slice(0, 4).forEach((a) => topRow.insertAdjacentHTML("beforeend", cardHTML(a)));
+    AGENTS.slice(4).forEach((a) => bottomRow.insertAdjacentHTML("beforeend", cardHTML(a)));
+
+    // stagger each agent's start so they don't all finish at once (matches the reference flow)
+    const staggerMs = 900;
+    const durationMs = 3800;
+
+    function paint(a, pct) {
+        const card = document.getElementById(`card-${a.key}`);
+        const bar = document.getElementById(`bar-${a.key}`);
+        const pctEl = document.getElementById(`pct-${a.key}`);
+        const statusEl = document.getElementById(`status-${a.key}`);
+        bar.style.width = pct + "%";
+        pctEl.textContent = pct + "%";
+        card.classList.remove("working", "done");
+        if (pct >= 100) {
+            card.classList.add("done");
+            statusEl.className = "status done";
+            statusEl.textContent = "✔ Completed";
+        } else if (pct > 0) {
+            card.classList.add("working");
+            statusEl.className = "status working";
+            statusEl.textContent = "⚡ In Progress";
+        } else {
+            statusEl.className = "status waiting";
+            statusEl.textContent = "⏳ Queued";
+        }
+    }
+
+    function updateOverall() {
+        const vals = AGENTS.map((a) => progress[a.key]);
+        const overall = Math.round(vals.reduce((s, v) => s + v, 0) / vals.length);
+        document.getElementById("overallRing").style.setProperty("--p", overall);
+        document.getElementById("overallPct").textContent = overall + "%";
+        return overall;
+    }
+
+    AGENTS.forEach((a) => paint(a, progress[a.key]));
+    updateOverall();
+
+    let allDone = AGENTS.every((a) => progress[a.key] >= 100);
+
+    if (!allDone) {
+        AGENTS.forEach((a, i) => {
+            const start = i * staggerMs;
+            const startedAt = Date.now() - progress[a.key] / 100 * durationMs;
+            const timer = setInterval(() => {
+                const elapsed = Date.now() - startedAt;
+                let pct = Math.min(100, Math.round((elapsed / durationMs) * 100));
+                if (Date.now() < startedAt + 0) pct = 0;
+                progress[a.key] = pct;
+                paint(a, pct);
+                AgentX.setProgress(progress);
+                const overall = updateOverall();
+                if (pct >= 100) clearInterval(timer);
+                if (overall >= 100 && !allDone) {
+                    allDone = true;
+                    onAllDone();
+                }
+            }, 150);
+        });
+    } else {
+        onAllDone(true);
+    }
+
+    function onAllDone(instant) {
+        const banner = document.getElementById("liveBanner");
+        banner.innerHTML = "✅ Your startup is ready — opening your overview…";
+        banner.style.background = "var(--green-soft)";
+        banner.style.color = "var(--green)";
+        document.getElementById("viewReportBtn").style.boxShadow = "0 0 0 3px rgba(52,211,153,.35)";
+        if (!instant) {
+            setTimeout(() => { window.location.href = "overview.html"; }, 2200);
+        }
+    }
+})();
+</script>
+</body>
+</html>

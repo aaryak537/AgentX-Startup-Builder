@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Startup Kit | AgentX</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="workspace.css">
+</head>
+<body class="workspace-body">
+
+<div class="workspace-shell">
+
+    <aside class="ws-sidebar">
+        <div class="logo-circle"></div>
+        <nav class="ws-nav">
+            <a href="overview.html"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg><span class="tip">Overview</span></a>
+            <a href="dashboard.html"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span class="tip">Multi-Agent Dashboard</span></a>
+            <a href="branding.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="8.5" cy="10.5" r="1.2" fill="currentColor"/><circle cx="12" cy="8" r="1.2" fill="currentColor"/><circle cx="15.5" cy="10.5" r="1.2" fill="currentColor"/></svg><span class="tip">Branding Studio</span></a>
+            <a href="financial.html"><svg viewBox="0 0 24 24"><path d="M4 20V10"/><path d="M11 20V4"/><path d="M18 20v-7"/></svg><span class="tip">Business Plan &amp; Financials</span></a>
+            <a href="kit.html" class="active"><svg viewBox="0 0 24 24"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg><span class="tip">Startup Kit</span></a>
+        </nav>
+        <a href="landingPage.html" class="ws-logout" title="Back to home">
+            <svg viewBox="0 0 24 24"><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/></svg>
+        </a>
+    </aside>
+
+    <main class="ws-main">
+
+        <div class="ws-topbar">
+            <div>
+                <h1>Startup kit</h1>
+                <span class="idea-chip"><span class="dot"></span> <span data-startup-name>Startup</span></span>
+            </div>
+            <div class="ws-actions">
+                <a href="branding.html" class="ws-pill-btn">← Branding Studio</a>
+                <a href="landingPage.html" class="ws-pill-btn">Build another startup</a>
+            </div>
+        </div>
+
+        <div class="kit-hero">
+            <h1>Your complete startup kit is ready! 🎉</h1>
+            <p>Everything you need to launch, grow, and succeed.</p>
+        </div>
+
+        <div class="kit-grid" id="kitGrid"></div>
+
+        <div class="kit-download-row">
+            <button class="kit-download-btn" id="downloadBtn">⬇ Download Startup Kit (ZIP · <span id="kitSize">0 MB</span>)</button>
+            <div class="kit-note">🔒 Secure download • your files are safe with us</div>
+        </div>
+
+    </main>
+</div>
+
+<script src="engine.js"></script>
+<script>
+(function () {
+    const s = AgentX.loadStartup();
+    AgentX.paintTopbarMeta(s);
+
+    const colorMap = {
+        red:    { bg: "rgba(248,113,113,.15)", fg: "#f87171" },
+        green:  { bg: "var(--green-soft)",     fg: "var(--green)" },
+        purple: { bg: "var(--purple-soft)",    fg: "var(--purple)" },
+        amber:  { bg: "var(--amber-soft)",     fg: "var(--amber)" },
+        blue:   { bg: "var(--blue-soft)",      fg: "var(--blue)" },
+        teal:   { bg: "rgba(45,212,191,.15)",  fg: "#2dd4bf" },
+    };
+
+    document.getElementById("kitGrid").innerHTML = s.deliverables.map(d => {
+        const c = colorMap[d.color] || colorMap.blue;
+        return `
+        <div class="kit-card">
+            <div class="file-icon" style="background:${c.bg};color:${c.fg}">${d.type}</div>
+            <div class="file-name">${d.name}</div>
+            <div class="file-meta">${d.meta}</div>
+            <button class="dl" title="Download ${d.name}" data-file="${d.name}">⬇</button>
+        </div>`;
+    }).join("");
+
+    document.getElementById("kitSize").textContent = (180 + s.score) + " MB";
+
+    document.querySelectorAll(".kit-card .dl").forEach(btn => {
+        btn.addEventListener("click", () => {
+            btn.textContent = "✓";
+            btn.style.color = "var(--green)";
+        });
+    });
+
+    document.getElementById("downloadBtn").addEventListener("click", function () {
+        this.innerHTML = "✓ Preparing your files…";
+        setTimeout(() => { this.innerHTML = "⬇ Download Startup Kit (ZIP · " + (180 + s.score) + " MB)"; }, 1800);
+    });
+})();
+</script>
+</body>
+</html>

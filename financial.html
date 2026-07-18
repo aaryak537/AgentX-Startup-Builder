@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Business Plan &amp; Financials | AgentX</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="workspace.css">
+<style>
+  .doc-viewer, .doc-viewer h2, .doc-viewer p, .doc-viewer li { font-family: "Source Serif 4", Georgia, serif; }
+  .doc-toolbar { font-family: "Inter", sans-serif; }
+</style>
+</head>
+<body class="workspace-body">
+
+<div class="workspace-shell">
+
+    <aside class="ws-sidebar">
+        <div class="logo-circle"></div>
+        <nav class="ws-nav">
+            <a href="overview.html"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg><span class="tip">Overview</span></a>
+            <a href="dashboard.html"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span class="tip">Multi-Agent Dashboard</span></a>
+            <a href="branding.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="8.5" cy="10.5" r="1.2" fill="currentColor"/><circle cx="12" cy="8" r="1.2" fill="currentColor"/><circle cx="15.5" cy="10.5" r="1.2" fill="currentColor"/></svg><span class="tip">Branding Studio</span></a>
+            <a href="financial.html" class="active"><svg viewBox="0 0 24 24"><path d="M4 20V10"/><path d="M11 20V4"/><path d="M18 20v-7"/></svg><span class="tip">Business Plan &amp; Financials</span></a>
+            <a href="kit.html"><svg viewBox="0 0 24 24"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg><span class="tip">Startup Kit</span></a>
+        </nav>
+        <a href="landingPage.html" class="ws-logout" title="Back to home">
+            <svg viewBox="0 0 24 24"><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/></svg>
+        </a>
+    </aside>
+
+    <main class="ws-main">
+
+        <div class="ws-topbar">
+            <div>
+                <h1>Business plan &amp; financials</h1>
+                <span class="idea-chip"><span class="dot"></span> <span data-startup-name>Startup</span></span>
+            </div>
+            <div class="ws-actions">
+                <a href="overview.html" class="ws-pill-btn">← Overview</a>
+                <a href="branding.html" class="ws-pill-btn primary">Branding Studio →</a>
+            </div>
+        </div>
+
+        <div class="fin-layout">
+
+            <!-- Business plan document -->
+            <div class="panel" style="padding:0;overflow:hidden">
+                <div class="doc-toolbar" style="padding:16px 20px 0">
+                    <span>Business Plan</span>
+                    <span>1 / 1 &nbsp; 🔍 &nbsp; ⬇</span>
+                </div>
+                <div class="doc-viewer">
+                    <h2>1. Executive Summary</h2>
+                    <p id="docExec">Loading…</p>
+                    <h2>2. Market Opportunity</h2>
+                    <p id="docMarket">Loading…</p>
+                    <div class="chart-box" id="growthChart" style="height:150px;margin:10px 0 4px"></div>
+                    <p style="font-size:.78rem;color:#555;font-family:Inter,sans-serif" id="growthLabel">Market Growth</p>
+                    <h2>3. Products &amp; Services</h2>
+                    <ul id="docProducts" style="padding-left:18px"></ul>
+                </div>
+            </div>
+
+            <!-- Financial dashboard -->
+            <div>
+                <div class="tab-row" id="tabRow">
+                    <button class="active" data-tab="overview">Financial Overview</button>
+                    <button data-tab="revenue">Revenue Forecast</button>
+                    <button data-tab="cost">Cost Breakdown</button>
+                    <button data-tab="profit">Profit Prediction</button>
+                </div>
+
+                <div id="tab-overview">
+                    <div class="stat-mini">
+                        <div class="box"><div class="label">Total Investment</div><div class="value" id="statInvestment">$0</div></div>
+                        <div class="box"><div class="label">Revenue (Year 1)</div><div class="value green" id="statRevenue">$0</div></div>
+                        <div class="box"><div class="label">Net Profit (Year 1)</div><div class="value green" id="statProfit">$0</div></div>
+                        <div class="box"><div class="label">ROI (Year 1)</div><div class="value" id="statRoi">0%</div></div>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-head"><h3>Revenue Forecast</h3><span class="muted">Quarterly</span></div>
+                        <div class="chart-box" id="overviewRevenueChart"></div>
+                    </div>
+                </div>
+
+                <div id="tab-revenue" style="display:none">
+                    <div class="panel">
+                        <div class="panel-head"><h3>Revenue Forecast</h3><span class="muted">Revenue vs Profit</span></div>
+                        <div class="chart-box" style="height:230px" id="revenueChart"></div>
+                    </div>
+                </div>
+
+                <div id="tab-cost" style="display:none">
+                    <div class="panel" style="display:flex;gap:20px;align-items:center">
+                        <div class="chart-box" style="height:170px;width:170px;flex-shrink:0" id="costDonut"></div>
+                        <div style="display:grid;gap:10px;flex:1" id="costLegend"></div>
+                    </div>
+                </div>
+
+                <div id="tab-profit" style="display:none">
+                    <div class="panel">
+                        <div class="panel-head"><h3>Profit Prediction</h3><span class="muted" id="profitMarginLabel">0%</span></div>
+                        <div class="chart-box" style="height:230px" id="profitChart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<script src="engine.js"></script>
+<script>
+(function () {
+    const s = AgentX.loadStartup();
+    AgentX.paintTopbarMeta(s);
+
+    document.getElementById("docExec").textContent = s.businessPlan.executiveSummary;
+    document.getElementById("docMarket").textContent = s.businessPlan.marketOpportunity;
+    document.getElementById("growthLabel").textContent = `${s.marketLabel} — ${s.businessPlan.marketGrowthText}`;
+    document.getElementById("docProducts").innerHTML = s.businessPlan.productList.map(p => `<li>${p}</li>`).join("");
+
+    document.getElementById("statInvestment").textContent = AgentX.fmtMoney(s.financial.investment);
+    document.getElementById("statRevenue").textContent = AgentX.fmtMoney(s.financial.revenueY1);
+    document.getElementById("statProfit").textContent = AgentX.fmtMoney(s.financial.netProfitY1);
+    document.getElementById("statRoi").textContent = s.financial.roi + "%";
+    document.getElementById("profitMarginLabel").textContent = Math.round((s.financial.netProfitY1 / s.financial.revenueY1) * 100) + "% margin";
+
+    /* ---------- tiny chart helpers (pure SVG, no dependencies) ---------- */
+    const NS = "http://www.w3.org/2000/svg";
+    function svg(w, h) {
+        const el = document.createElementNS(NS, "svg");
+        el.setAttribute("viewBox", `0 0 ${w} ${h}`);
+        el.setAttribute("width", "100%");
+        el.setAttribute("height", "100%");
+        el.setAttribute("preserveAspectRatio", "none");
+        return el;
+    }
+
+    function barChart(containerId, values, labels, color1, color2) {
+        const el = document.getElementById(containerId);
+        const w = 400, h = 150, pad = 20;
+        const max = Math.max(...values) * 1.15;
+        const s1 = svg(w, h);
+        const gradId = containerId + "grad";
+        s1.innerHTML = `<defs><linearGradient id="${gradId}" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="${color1}"/><stop offset="100%" stop-color="${color2}"/></linearGradient></defs>`;
+        const bw = (w - pad * 2) / values.length * 0.55;
+        const gap = (w - pad * 2) / values.length;
+        values.forEach((v, i) => {
+            const bh = (v / max) * (h - 34);
+            const x = pad + i * gap + (gap - bw) / 2;
+            const y = h - 24 - bh;
+            s1.innerHTML += `<rect x="${x}" y="${y}" width="${bw}" height="${bh}" rx="4" fill="url(#${gradId})"/>`;
+            s1.innerHTML += `<text x="${x + bw/2}" y="${h - 8}" font-size="9" fill="var(--text-faint)" text-anchor="middle" font-family="Inter,sans-serif">${labels[i]}</text>`;
+        });
+        el.innerHTML = "";
+        el.appendChild(s1);
+    }
+
+    function lineChart(containerId, seriesList, labels) {
+        // seriesList: [{values:[...], color:"#hex", fillTo0:bool}]
+        const el = document.getElementById(containerId);
+        const w = 400, h = 190, pad = 24;
+        const allVals = seriesList.flatMap(s => s.values);
+        const max = Math.max(...allVals) * 1.15;
+        const min = 0;
+        const s1 = svg(w, h);
+        let defs = "<defs>";
+        seriesList.forEach((series, si) => {
+            defs += `<linearGradient id="${containerId}fill${si}" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="${series.color}" stop-opacity="0.35"/>
+                <stop offset="100%" stop-color="${series.color}" stop-opacity="0"/></linearGradient>`;
+        });
+        defs += "</defs>";
+        s1.innerHTML = defs;
+        const stepX = (w - pad * 2) / (labels.length - 1);
+        seriesList.forEach((series, si) => {
+            const pts = series.values.map((v, i) => {
+                const x = pad + i * stepX;
+                const y = h - 28 - ((v - min) / (max - min)) * (h - 50);
+                return [x, y];
+            });
+            const linePath = pts.map((p, i) => (i === 0 ? "M" : "L") + p[0] + "," + p[1]).join(" ");
+            const areaPath = linePath + ` L${pts[pts.length-1][0]},${h-28} L${pts[0][0]},${h-28} Z`;
+            s1.innerHTML += `<path d="${areaPath}" fill="url(#${containerId}fill${si})"/>`;
+            s1.innerHTML += `<path d="${linePath}" fill="none" stroke="${series.color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>`;
+            pts.forEach(p => { s1.innerHTML += `<circle cx="${p[0]}" cy="${p[1]}" r="3.5" fill="${series.color}"/>`; });
+        });
+        labels.forEach((lb, i) => {
+            const x = pad + i * stepX;
+            s1.innerHTML += `<text x="${x}" y="${h-8}" font-size="9" fill="var(--text-faint)" text-anchor="middle" font-family="Inter,sans-serif">${lb}</text>`;
+        });
+        el.innerHTML = "";
+        el.appendChild(s1);
+    }
+
+    function donutChart(containerId, legendId, dataObj, colors) {
+        const el = document.getElementById(containerId);
+        const size = 170, stroke = 26, r = (size - stroke) / 2, cx = size/2, cy = size/2;
+        const circumference = 2 * Math.PI * r;
+        let offset = 0;
+        const entries = Object.entries(dataObj);
+        const s1 = svg(size, size);
+        s1.setAttribute("preserveAspectRatio", "xMidYMid meet");
+        entries.forEach(([label, pct], i) => {
+            const len = (pct / 100) * circumference;
+            s1.innerHTML += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${colors[i % colors.length]}"
+                stroke-width="${stroke}" stroke-dasharray="${len} ${circumference - len}"
+                stroke-dashoffset="${-offset}" transform="rotate(-90 ${cx} ${cy})" stroke-linecap="butt"/>`;
+            offset += len;
+        });
+        el.innerHTML = "";
+        el.appendChild(s1);
+
+        const legend = document.getElementById(legendId);
+        legend.innerHTML = entries.map(([label, pct], i) => `
+            <div style="display:flex;align-items:center;justify-content:space-between;font-size:.8rem">
+                <span style="display:flex;align-items:center;gap:8px">
+                    <span style="width:10px;height:10px;border-radius:3px;background:${colors[i % colors.length]}"></span>
+                    ${label}
+                </span>
+                <strong>${pct}%</strong>
+            </div>`).join("");
+    }
+
+    const quarters = ["Q1", "Q2", "Q3", "Q4"];
+    barChart("overviewRevenueChart", s.financial.revenueForecast, quarters, "#4f8cff", "#8b5cf6");
+    lineChart("revenueChart", [
+        { values: s.financial.revenueForecast, color: "#4f8cff" },
+        { values: s.financial.profitForecast, color: "#34d399" },
+    ], quarters);
+    lineChart("profitChart", [{ values: s.financial.profitForecast, color: "#34d399" }], quarters);
+    donutChart("costDonut", "costLegend", s.financial.costBreakdown, ["#4f8cff", "#8b5cf6", "#fbbf24", "#34d399", "#f87171"]);
+
+    // fake year-over-year market growth bars for the doc viewer
+    const cagrNum = parseFloat(s.cagr) / 100;
+    const years = ["2024", "2025", "2026", "2027", "2028"];
+    let base = s.marketSize / Math.pow(1 + cagrNum, 4);
+    const growthVals = years.map((_, i) => Math.round(base * Math.pow(1 + cagrNum, i)));
+    barChart("growthChart", growthVals, years, "#c9a76b", "#8a6d3b");
+    document.getElementById("growthChart").querySelectorAll("text").forEach(t => t.setAttribute("fill", "#8a8578"));
+
+    /* ---------- tabs ---------- */
+    const tabs = document.querySelectorAll("#tabRow button");
+    const panels = { overview: "tab-overview", revenue: "tab-revenue", cost: "tab-cost", profit: "tab-profit" };
+    tabs.forEach(btn => {
+        btn.addEventListener("click", () => {
+            tabs.forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            Object.values(panels).forEach(id => document.getElementById(id).style.display = "none");
+            document.getElementById(panels[btn.dataset.tab]).style.display = "block";
+        });
+    });
+})();
+</script>
+</body>
+</html>

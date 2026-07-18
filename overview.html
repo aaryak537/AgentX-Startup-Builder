@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Startup Overview | AgentX</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="workspace.css">
+</head>
+<body class="workspace-body">
+
+<div class="workspace-shell">
+
+    <aside class="ws-sidebar">
+        <div class="logo-circle"></div>
+        <nav class="ws-nav">
+            <a href="overview.html" class="active"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg><span class="tip">Overview</span></a>
+            <a href="dashboard.html"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span class="tip">Multi-Agent Dashboard</span></a>
+            <a href="branding.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="8.5" cy="10.5" r="1.2" fill="currentColor"/><circle cx="12" cy="8" r="1.2" fill="currentColor"/><circle cx="15.5" cy="10.5" r="1.2" fill="currentColor"/></svg><span class="tip">Branding Studio</span></a>
+            <a href="financial.html"><svg viewBox="0 0 24 24"><path d="M4 20V10"/><path d="M11 20V4"/><path d="M18 20v-7"/></svg><span class="tip">Business Plan &amp; Financials</span></a>
+            <a href="kit.html"><svg viewBox="0 0 24 24"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg><span class="tip">Startup Kit</span></a>
+        </nav>
+        <a href="landingPage.html" class="ws-logout" title="Back to home">
+            <svg viewBox="0 0 24 24"><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/></svg>
+        </a>
+    </aside>
+
+    <main class="ws-main">
+
+        <div class="ws-topbar">
+            <div>
+                <h1>Your startup is taking shape 🎉</h1>
+                <span class="idea-chip"><span class="dot"></span> <span data-startup-idea>“your idea”</span></span>
+            </div>
+            <div class="ws-actions">
+                <a href="branding.html" class="ws-pill-btn">Branding Studio</a>
+                <a href="financial.html" class="ws-pill-btn primary">Business Plan →</a>
+            </div>
+        </div>
+
+        <div class="overview-hero">
+            <div class="panel">
+                <div class="panel-head">
+                    <h3>Startup name</h3>
+                    <span class="muted">Editable</span>
+                </div>
+                <div style="font-size:1.6rem;font-weight:800;margin-bottom:6px" data-startup-name>Startup Name</div>
+                <p class="muted" style="font-size:.85rem;color:var(--text-dim)" id="taglineText">Tagline</p>
+                <div class="chip-row" id="chipRow"></div>
+            </div>
+            <div class="panel score-card">
+                <div class="ring" id="scoreRing"><span id="scoreVal">0</span></div>
+                <div>
+                    <div style="font-weight:700;margin-bottom:6px">Startup Score</div>
+                    <ul>
+                        <li>Market Opportunity</li>
+                        <li>Business Viability</li>
+                        <li>Financial Feasibility</li>
+                        <li>Execution Readiness</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="overview-grid" style="margin-bottom:16px">
+            <div class="panel">
+                <div class="panel-head"><h3>AI-generated logo</h3></div>
+                <div class="logo-plate" id="logoPlate">
+                    <div id="logoInitials" style="font-size:1.8rem">XX</div>
+                    <div id="logoName" style="font-size:.8rem;font-weight:600;opacity:.85">Name</div>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-head"><h3>Business summary</h3></div>
+                <p style="font-size:.82rem;color:var(--text-dim);line-height:1.55" id="summaryText">Loading…</p>
+                <a href="financial.html" class="ws-pill-btn" style="margin-top:12px;font-size:.75rem;padding:8px 14px">Read Full Plan →</a>
+            </div>
+            <div class="panel">
+                <div class="panel-head"><h3>Market size</h3><span class="muted" id="marketLabelText">Global market</span></div>
+                <div style="font-size:1.5rem;font-weight:800" id="marketSizeText">$0B</div>
+                <div class="mini-bars" id="miniBars"></div>
+            </div>
+        </div>
+
+        <div class="overview-grid">
+            <div class="panel">
+                <div class="panel-head"><h3>Top competitors</h3><span class="muted">View all →</span></div>
+                <div id="competitorList" style="display:grid;gap:10px"></div>
+            </div>
+            <div class="panel">
+                <div class="panel-head"><h3>Financial highlights</h3></div>
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+                    <div>
+                        <div class="muted" style="font-size:.7rem">Est. Investment</div>
+                        <div style="font-weight:700;font-size:1rem" id="fhInvestment">$0</div>
+                    </div>
+                    <div>
+                        <div class="muted" style="font-size:.7rem">Revenue (Year 1)</div>
+                        <div style="font-weight:700;font-size:1rem;color:var(--green)" id="fhRevenue">$0</div>
+                    </div>
+                    <div>
+                        <div class="muted" style="font-size:.7rem">Profit Margin</div>
+                        <div style="font-weight:700;font-size:1rem" id="fhMargin">0%</div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px">
+                <div class="panel-head" style="width:100%"><h3>Launch readiness</h3></div>
+                <div class="ring" id="readyRing" style="--ring-color:var(--green)"><span id="readyPct">0%</span></div>
+                <span class="muted">On track</span>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<script src="engine.js"></script>
+<script>
+(function () {
+    const s = AgentX.loadStartup();
+    AgentX.paintTopbarMeta(s);
+
+    document.getElementById("taglineText").textContent = s.tagline;
+    document.getElementById("chipRow").innerHTML =
+        `<span class="chip">${s.icon} ${s.category}</span><span class="chip">Score ${s.score}/100</span><span class="chip">${s.launchReadiness}% launch-ready</span>`;
+
+    document.getElementById("scoreRing").style.setProperty("--p", s.score);
+    document.getElementById("scoreVal").textContent = s.score;
+
+    document.getElementById("logoPlate").style.background = `linear-gradient(135deg, ${s.palette[0]}, ${s.palette[1]})`;
+    document.getElementById("logoInitials").textContent = s.initials;
+    document.getElementById("logoName").textContent = s.name;
+
+    document.getElementById("summaryText").textContent = s.businessPlan.executiveSummary;
+
+    document.getElementById("marketLabelText").textContent = s.marketLabel;
+    document.getElementById("marketSizeText").textContent = "$" + s.marketSize + "B";
+    const bars = [0.4, 0.55, 0.7, 0.62, 0.85, 1];
+    document.getElementById("miniBars").innerHTML = bars.map(h => `<div class="bar" style="height:${h*100}%"></div>`).join("");
+
+    document.getElementById("competitorList").innerHTML = s.competitors.map(c => `
+        <div style="display:flex;justify-content:space-between;align-items:center;background:var(--surface-strong);padding:10px 14px;border-radius:10px">
+            <span style="font-size:.85rem;font-weight:600">${c.name}</span>
+            <span class="chip">${c.tag}</span>
+        </div>`).join("");
+
+    document.getElementById("fhInvestment").textContent = AgentX.fmtMoney(s.financial.investment);
+    document.getElementById("fhRevenue").textContent = AgentX.fmtMoney(s.financial.revenueY1);
+    document.getElementById("fhMargin").textContent = Math.round((s.financial.netProfitY1 / s.financial.revenueY1) * 100) + "%";
+
+    document.getElementById("readyRing").style.setProperty("--p", s.launchReadiness);
+    document.getElementById("readyPct").textContent = s.launchReadiness + "%";
+})();
+</script>
+</body>
+</html>
