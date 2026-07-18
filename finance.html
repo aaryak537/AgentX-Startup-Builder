@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Finance Dashboard | AgentX</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/animations.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+<!--================ NAVBAR ================-->
+
+<nav class="navbar">
+
+    <div class="logo">
+        <div class="logo-circle"></div>
+        <h2>AgentX</h2>
+    </div>
+
+    <ul>
+
+        <li><a href="landingPage.html">Home</a></li>
+
+        <li><a href="finance.html">Dashboard</a></li>
+
+        <li><a href="#">Reports</a></li>
+
+        <li><a href="#">Settings</a></li>
+
+    </ul>
+
+    <button class="btn-primary">
+        Export PDF
+    </button>
+
+</nav>
+
+<!--================ PAGE HEADER ================-->
+
+<section class="page-header">
+
+    <div>
+
+        <h1>Financial Dashboard</h1>
+
+        <p>
+            AI-generated financial overview for your startup.
+        </p>
+
+    </div>
+
+</section>
+
+<!--================ KPI CARDS ================-->
+
+<section class="dashboard-grid">
+
+    <div class="stat-card">
+
+        <h4>Total Investment</h4>
+
+        <h2>$120,000</h2>
+
+        <span class="positive">+18%</span>
+
+    </div>
+
+    <div class="stat-card">
+
+        <h4>Estimated Revenue</h4>
+
+        <h2>$485,000</h2>
+
+        <span class="positive">+42%</span>
+
+    </div>
+
+    <div class="stat-card">
+
+        <h4>Monthly Burn Rate</h4>
+
+        <h2>$8,900</h2>
+
+        <span class="negative">-6%</span>
+
+    </div>
+
+    <div class="stat-card">
+
+        <h4>Runway</h4>
+
+        <h2>13 Months</h2>
+
+        <span class="positive">Healthy</span>
+
+    </div>
+
+</section>
+
+<!--================ ANALYTICS ================-->
+
+<section class="analytics-grid">
+
+    <div class="glass-card large">
+
+        <div class="card-header">
+
+            <h3>Revenue Forecast</h3>
+
+            <button class="btn-outline">
+                View Details
+            </button>
+
+        </div>
+
+        <div class="chart-placeholder">
+
+            Revenue Chart
+
+        </div>
+
+    </div>
+
+    <div class="glass-card">
+
+        <h3>Funding Goal</h3>
+
+        <div class="progress-bar">
+
+            <div class="progress-fill" style="width:72%;"></div>
+
+        </div>
+
+        <h2>$360K / $500K</h2>
+
+        <p>72% Raised</p>
+
+    </div>
+
+</section>
+
+<!--================ EXPENSES ================-->
+
+<section class="dashboard-section">
+
+    <div class="glass-card">
+
+        <h3>Expense Distribution</h3>
+
+        <div class="expense-item">
+
+            <span>Development</span>
+
+            <span>38%</span>
+
+        </div>
+
+        <div class="expense-item">
+
+            <span>Marketing</span>
+
+            <span>26%</span>
+
+        </div>
+
+        <div class="expense-item">
+
+            <span>Operations</span>
+
+            <span>18%</span>
+
+        </div>
+
+        <div class="expense-item">
+
+            <span>Legal</span>
+
+            <span>10%</span>
+
+        </div>
+
+        <div class="expense-item">
+
+            <span>Misc</span>
+
+            <span>8%</span>
+
+        </div>
+
+    </div>
+
+    <div class="glass-card">
+
+        <h3>AI Financial Insights</h3>
+
+        <ul class="insight-list">
+
+            <li>✅ Increase marketing budget by 10% to improve ROI.</li>
+
+            <li>📈 Current runway supports expansion for one year.</li>
+
+            <li>💡 SaaS subscription pricing has highest projected profit.</li>
+
+            <li>🚀 Investors prefer this financial model.</li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+<!--================ CASH FLOW ================-->
+
+<section class="glass-card">
+
+    <div class="card-header">
+
+        <h3>Monthly Cash Flow</h3>
+
+        <button class="btn-secondary">
+
+            AI Analysis
+
+        </button>
+
+    </div>
+
+    <table class="finance-table">
+
+        <thead>
+
+            <tr>
+
+                <th>Month</th>
+
+                <th>Revenue</th>
+
+                <th>Expenses</th>
+
+                <th>Profit</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr>
+
+                <td>January</td>
+
+                <td>$12,500</td>
+
+                <td>$8,400</td>
+
+                <td class="positive">$4,100</td>
+
+            </tr>
+
+            <tr>
+
+                <td>February</td>
+
+                <td>$15,800</td>
+
+                <td>$8,700</td>
+
+                <td class="positive">$7,100</td>
+
+            </tr>
+
+            <tr>
+
+                <td>March</td>
+
+                <td>$18,900</td>
+
+                <td>$9,100</td>
+
+                <td class="positive">$9,800</td>
+
+            </tr>
+
+            <tr>
+
+                <td>April</td>
+
+                <td>$23,000</td>
+
+                <td>$9,500</td>
+
+                <td class="positive">$13,500</td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</section>
+
+<!--================ INVESTOR SCORE ================-->
+
+<section class="dashboard-grid">
+
+    <div class="glass-card">
+
+        <h3>Investor Readiness</h3>
+
+        <h1>92%</h1>
+
+        <p>
+
+            Excellent financial stability and investment potential.
+
+        </p>
+
+    </div>
+
+    <div class="glass-card">
+
+        <h3>AI Recommendation</h3>
+
+        <p>
+
+            Launch paid marketing after reaching
+            $500K annual revenue forecast.
+
+        </p>
+
+    </div>
+
+    <div class="glass-card">
+
+        <h3>Export Reports</h3>
+
+        <button class="btn-primary">
+
+            Download PDF
+
+        </button>
+
+        <br><br>
+
+        <button class="btn-outline">
+
+            Download Excel
+
+        </button>
+
+    </div>
+
+</section>
+
+<!--================ FOOTER ================-->
+
+<footer>
+
+    <h2>AgentX Startup Builder</h2>
+
+    <p>
+
+        Powered by Multi-Agent AI
+
+    </p>
+
+    <p>
+
+        © 2026 AgentX Team
+
+    </p>
+
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>

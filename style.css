@@ -1902,3 +1902,1163 @@ footer::before{
     color:white;
     text-decoration:none;
 }
+/* =====================================================
+   SIGNUP PAGE
+===================================================== */
+
+.auth-page{
+
+    min-height:100vh;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:120px 8%;
+
+}
+
+.auth-container{
+
+    width:100%;
+
+    max-width:1300px;
+
+    display:grid;
+
+    grid-template-columns:1fr 480px;
+
+    gap:70px;
+
+    align-items:center;
+
+}
+
+.auth-left h1{
+
+    font-size:58px;
+
+}
+
+.auth-left p{
+
+    margin-top:20px;
+
+    line-height:1.8;
+
+    color:#b7bfd8;
+
+}
+
+.auth-feature{
+
+    margin-top:35px;
+
+    display:grid;
+
+    gap:16px;
+
+}
+
+.auth-feature div{
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    padding:15px 18px;
+
+    border-radius:14px;
+
+    backdrop-filter:blur(20px);
+
+}
+
+.auth-card{
+
+    background:rgba(255,255,255,.08);
+
+    border:1px solid rgba(255,255,255,.12);
+
+    backdrop-filter:blur(25px);
+
+    border-radius:28px;
+
+    padding:45px;
+
+    box-shadow:0 30px 80px rgba(0,0,0,.35);
+
+}
+
+.auth-card h2{
+
+    font-size:34px;
+
+    margin-bottom:10px;
+
+}
+
+.auth-card p{
+
+    color:#b6bfd8;
+
+    margin-bottom:30px;
+
+}
+
+.input-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+    margin-bottom:20px;
+
+}
+
+.input-group label{
+
+    margin-bottom:8px;
+
+    font-size:14px;
+
+    font-weight:600;
+
+}
+
+.input-group input{
+
+    height:58px;
+
+    border-radius:14px;
+
+    border:1px solid rgba(255,255,255,.12);
+
+    background:rgba(255,255,255,.05);
+
+    padding:0 18px;
+
+    color:white;
+
+    font-size:15px;
+
+    transition:.3s;
+
+}
+
+.input-group input:focus{
+
+    outline:none;
+
+    border-color:#4F8CFF;
+
+    box-shadow:0 0 0 4px rgba(79,140,255,.2);
+
+}
+
+.auth-btn{
+
+    width:100%;
+
+    margin-top:12px;
+
+}
+
+.divider{
+
+    display:flex;
+
+    align-items:center;
+
+    margin:28px 0;
+
+    color:#9099b5;
+
+}
+
+.divider::before,
+
+.divider::after{
+
+    content:"";
+
+    flex:1;
+
+    height:1px;
+
+    background:rgba(255,255,255,.12);
+
+}
+
+.divider span{
+
+    margin:0 16px;
+
+}
+
+.google-btn{
+
+    width:100%;
+
+    height:56px;
+
+    border-radius:14px;
+
+    border:1px solid rgba(255,255,255,.12);
+
+    background:rgba(255,255,255,.05);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:12px;
+
+    cursor:pointer;
+
+    color:white;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.google-btn:hover{
+
+    transform:translateY(-2px);
+
+}
+
+.auth-footer{
+
+    margin-top:30px;
+
+    text-align:center;
+
+}
+
+.auth-footer a{
+
+    color:#4F8CFF;
+
+    text-decoration:none;
+
+    font-weight:700;
+
+}
+
+@media(max-width:1000px){
+
+.auth-container{
+
+grid-template-columns:1fr;
+
+}
+
+.auth-left{
+
+text-align:center;
+
+}
+
+.auth-left h1{
+
+font-size:42px;
+
+}
+
+}
+/* =====================================================
+   STARTUP PAGE
+===================================================== */
+
+.page-header{
+    width:90%;
+    max-width:1400px;
+    margin:120px auto 50px;
+}
+
+.page-header h1{
+    font-size:58px;
+    margin:15px 0;
+}
+
+.page-header p{
+    width:60%;
+    line-height:1.8;
+    opacity:.8;
+}
+
+.overview-grid{
+    width:90%;
+    max-width:1400px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
+}
+
+.glass-card{
+    padding:30px;
+    border-radius:24px;
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+    backdrop-filter:blur(18px);
+    transition:.35s;
+}
+
+.glass-card:hover{
+    transform:translateY(-8px);
+    border-color:#4F8CFF;
+}
+
+.glass-card h3{
+    margin-bottom:15px;
+}
+
+.glass-card h2{
+    margin-top:20px;
+    color:#4F8CFF;
+}
+
+.agents-section{
+    width:90%;
+    max-width:1400px;
+    margin:90px auto;
+}
+
+.agent-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:25px;
+}
+
+.agent-card{
+    padding:25px;
+    border-radius:20px;
+    background:#151827;
+    border:1px solid rgba(255,255,255,.08);
+    transition:.35s;
+}
+
+.agent-card span{
+    display:block;
+    margin-top:10px;
+    opacity:.75;
+}
+
+.complete{
+    border-left:5px solid #00d084;
+}
+
+.working{
+    border-left:5px solid #4F8CFF;
+    animation:pulse 2s infinite;
+}
+
+.pending{
+    border-left:5px solid orange;
+}
+
+.stats-grid{
+    width:90%;
+    max-width:1400px;
+    margin:80px auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:25px;
+}
+
+.stat-card{
+    text-align:center;
+    padding:35px;
+    border-radius:24px;
+    background:#161a2b;
+    transition:.3s;
+}
+
+.stat-card:hover{
+    transform:translateY(-8px);
+}
+
+.stat-card h2{
+    color:#4F8CFF;
+    font-size:42px;
+}
+
+.timeline{
+    width:90%;
+    max-width:1000px;
+    margin:100px auto;
+}
+
+.timeline-item{
+    display:flex;
+    align-items:flex-start;
+    gap:25px;
+    margin-bottom:40px;
+}
+
+.timeline-dot{
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    background:#4F8CFF;
+    margin-top:8px;
+    box-shadow:0 0 20px #4F8CFF;
+}
+
+.cta{
+    width:90%;
+    max-width:1200px;
+    margin:100px auto;
+    text-align:center;
+    padding:70px;
+    border-radius:30px;
+    background:linear-gradient(135deg,#3B82F6,#6D28D9);
+}
+
+.cta h2{
+    font-size:44px;
+}
+
+.cta p{
+    width:70%;
+    margin:20px auto 40px;
+    line-height:1.8;
+}
+/* ==========================================================
+   MARKET RESEARCH PAGE
+==========================================================*/
+
+.page-hero{
+    width:100%;
+    padding:120px 10% 70px;
+    text-align:center;
+}
+
+.page-hero h1{
+    font-size:3rem;
+    margin:20px 0;
+}
+
+.page-hero p{
+    max-width:750px;
+    margin:auto;
+    opacity:.8;
+    line-height:1.8;
+}
+
+.container{
+    width:90%;
+    max-width:1350px;
+    margin:auto;
+    margin-bottom:80px;
+}
+
+.glass-card{
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+    backdrop-filter:blur(18px);
+    border-radius:24px;
+    padding:40px;
+    transition:.35s;
+}
+
+.glass-card:hover{
+    transform:translateY(-6px);
+    border-color:#5F8BFF;
+}
+
+.large{
+    margin-top:25px;
+}
+
+.large input{
+    width:75%;
+}
+
+.dashboard-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+
+    gap:25px;
+
+    margin-top:35px;
+
+}
+
+.dashboard-card{
+
+    background:rgba(255,255,255,.04);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:20px;
+
+    padding:30px;
+
+    transition:.35s;
+
+}
+
+.dashboard-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 15px 45px rgba(70,130,255,.25);
+
+}
+
+.dashboard-card h2{
+
+    color:#66D6FF;
+
+    font-size:2.2rem;
+
+    margin:18px 0;
+
+}
+
+.dashboard-card p{
+
+    opacity:.8;
+
+    line-height:1.7;
+
+}
+
+.section-title{
+
+    text-align:center;
+
+    margin-bottom:40px;
+
+    font-size:2.3rem;
+
+}
+
+.table-card{
+
+    overflow-x:auto;
+
+    background:rgba(255,255,255,.04);
+
+    border-radius:20px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+}
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+thead{
+
+    background:rgba(95,139,255,.15);
+
+}
+
+th{
+
+    padding:20px;
+
+    text-align:left;
+
+}
+
+td{
+
+    padding:20px;
+
+    border-top:1px solid rgba(255,255,255,.05);
+
+}
+
+tbody tr{
+
+    transition:.3s;
+
+}
+
+tbody tr:hover{
+
+    background:rgba(95,139,255,.08);
+
+}
+
+.swot-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+
+    gap:25px;
+
+}
+
+.swot-card{
+
+    padding:28px;
+
+    border-radius:20px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    background:rgba(255,255,255,.04);
+
+}
+
+.swot-card h3{
+
+    margin-bottom:18px;
+
+}
+
+.swot-card ul{
+
+    padding-left:18px;
+
+}
+
+.swot-card li{
+
+    margin:12px 0;
+
+    opacity:.85;
+
+}
+
+.strength{
+
+    border-left:5px solid #00D084;
+
+}
+
+.weakness{
+
+    border-left:5px solid #FF8A00;
+
+}
+
+.opportunity{
+
+    border-left:5px solid #00C2FF;
+
+}
+
+.threat{
+
+    border-left:5px solid #FF4D6D;
+
+}
+
+.section-text{
+
+    opacity:.75;
+
+    margin-top:8px;
+
+    margin-bottom:18px;
+
+}
+
+@media(max-width:768px){
+
+.page-hero h1{
+
+font-size:2.3rem;
+
+}
+
+.large input{
+
+width:100%;
+
+margin-bottom:15px;
+
+}
+
+.large{
+
+display:flex;
+
+flex-direction:column;
+
+}
+
+}
+/*==================================================
+            FINANCE DASHBOARD
+===================================================*/
+
+.page-header{
+    width:90%;
+    margin:120px auto 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.page-header h1{
+    font-size:3rem;
+    font-weight:800;
+    color:#fff;
+}
+
+.page-header p{
+    color:#9CA3AF;
+    margin-top:10px;
+    font-size:1rem;
+}
+
+/*=========================================
+            DASHBOARD GRID
+==========================================*/
+
+.dashboard-grid{
+
+    width:90%;
+    margin:30px auto;
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+
+    gap:25px;
+
+}
+
+/*=========================================
+            ANALYTICS GRID
+==========================================*/
+
+.analytics-grid{
+
+    width:90%;
+
+    margin:30px auto;
+
+    display:grid;
+
+    grid-template-columns:2fr 1fr;
+
+    gap:25px;
+
+}
+
+@media(max-width:900px){
+
+.analytics-grid{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+/*=========================================
+                GLASS CARD
+==========================================*/
+
+.glass-card{
+
+background:rgba(255,255,255,.05);
+
+border:1px solid rgba(255,255,255,.08);
+
+backdrop-filter:blur(20px);
+
+-webkit-backdrop-filter:blur(20px);
+
+border-radius:22px;
+
+padding:30px;
+
+transition:.35s;
+
+box-shadow:0 10px 35px rgba(0,0,0,.25);
+
+}
+
+.glass-card:hover{
+
+transform:translateY(-8px);
+
+box-shadow:0 20px 50px rgba(0,170,255,.18);
+
+}
+
+.glass-card.large{
+
+min-height:430px;
+
+}
+
+/*=========================================
+            KPI CARD
+==========================================*/
+
+.stat-card{
+
+background:linear-gradient(145deg,#171F36,#101826);
+
+border-radius:22px;
+
+padding:30px;
+
+border:1px solid rgba(255,255,255,.08);
+
+transition:.35s;
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+.stat-card::before{
+
+content:"";
+
+position:absolute;
+
+width:180px;
+
+height:180px;
+
+background:radial-gradient(#3B82F6,transparent);
+
+top:-90px;
+
+right:-90px;
+
+opacity:.35;
+
+}
+
+.stat-card:hover{
+
+transform:translateY(-8px);
+
+box-shadow:0 15px 40px rgba(59,130,246,.25);
+
+}
+
+.stat-card h4{
+
+color:#94A3B8;
+
+font-size:.95rem;
+
+margin-bottom:15px;
+
+}
+
+.stat-card h2{
+
+font-size:2rem;
+
+color:white;
+
+margin-bottom:10px;
+
+}
+
+/*=========================================
+            CARD HEADER
+==========================================*/
+
+.card-header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:25px;
+
+}
+
+.card-header h3{
+
+color:white;
+
+font-size:1.4rem;
+
+}
+
+/*=========================================
+            CHART PLACEHOLDER
+==========================================*/
+
+.chart-placeholder{
+
+height:300px;
+
+border-radius:18px;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+background:linear-gradient(135deg,#172033,#0F172A);
+
+border:2px dashed rgba(255,255,255,.08);
+
+color:#64748B;
+
+font-size:1.2rem;
+
+}
+
+/*=========================================
+            PROGRESS BAR
+==========================================*/
+
+.progress-bar{
+
+margin:30px 0;
+
+width:100%;
+
+height:14px;
+
+background:#202C42;
+
+border-radius:50px;
+
+overflow:hidden;
+
+}
+
+.progress-fill{
+
+height:100%;
+
+background:linear-gradient(90deg,#00C6FF,#0072FF);
+
+border-radius:50px;
+
+animation:growBar 2s ease;
+
+}
+
+@keyframes growBar{
+
+from{
+
+width:0;
+
+}
+
+}
+
+/*=========================================
+            EXPENSES
+==========================================*/
+
+.dashboard-section{
+
+width:90%;
+
+margin:30px auto;
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+gap:25px;
+
+}
+
+@media(max-width:900px){
+
+.dashboard-section{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+.expense-item{
+
+display:flex;
+
+justify-content:space-between;
+
+padding:15px 0;
+
+border-bottom:1px solid rgba(255,255,255,.08);
+
+color:#CBD5E1;
+
+}
+
+/*=========================================
+            INSIGHTS
+==========================================*/
+
+.insight-list{
+
+list-style:none;
+
+margin-top:20px;
+
+}
+
+.insight-list li{
+
+padding:16px;
+
+margin-bottom:14px;
+
+border-radius:14px;
+
+background:rgba(255,255,255,.05);
+
+color:#E2E8F0;
+
+line-height:1.6;
+
+}
+
+/*=========================================
+            TABLE
+==========================================*/
+
+.finance-table{
+
+width:100%;
+
+margin-top:25px;
+
+border-collapse:collapse;
+
+}
+
+.finance-table th{
+
+padding:18px;
+
+background:#172033;
+
+color:white;
+
+text-align:left;
+
+}
+
+.finance-table td{
+
+padding:18px;
+
+border-bottom:1px solid rgba(255,255,255,.08);
+
+color:#CBD5E1;
+
+}
+
+.finance-table tr:hover{
+
+background:rgba(255,255,255,.03);
+
+}
+
+/*=========================================
+            STATUS COLORS
+==========================================*/
+
+.positive{
+
+color:#22C55E;
+
+font-weight:700;
+
+}
+
+.negative{
+
+color:#EF4444;
+
+font-weight:700;
+
+}
+
+/*=========================================
+            BUTTON IMPROVEMENTS
+==========================================*/
+
+.btn-primary,
+
+.btn-secondary,
+
+.btn-outline{
+
+cursor:pointer;
+
+transition:.35s;
+
+}
+
+.btn-primary:hover{
+
+transform:translateY(-3px);
+
+box-shadow:0 12px 30px rgba(0,140,255,.35);
+
+}
+
+.btn-outline:hover{
+
+background:#2563EB;
+
+color:white;
+
+}
+
+/*=========================================
+            RESPONSIVE
+==========================================*/
+
+@media(max-width:768px){
+
+.page-header h1{
+
+font-size:2.2rem;
+
+}
+
+.finance-table{
+
+display:block;
+
+overflow-x:auto;
+
+white-space:nowrap;
+
+}
+
+.stat-card h2{
+
+font-size:1.6rem;
+
+}
+
+}
