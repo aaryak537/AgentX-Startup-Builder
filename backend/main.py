@@ -25,3 +25,6 @@ app.include_router(
     prefix="/api/startup",
     tags=["Startup"]
 )
+from routes.pdf import router as pdf_router
+
+app.include_router(pdf_router)
