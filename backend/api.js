@@ -1,8 +1,8 @@
-const API_URL = "http://127.0.0.1:8000/api/startup";
+const API_BASE = "http://localhost:5000/api";
 
-async function generateStartup(prompt) {
+export async function generateStartup(prompt) {
 
-    const response = await fetch(`${API_URL}/generate`, {
+    const response = await fetch(`${API_BASE}/startup/generate`, {
 
         method: "POST",
 
@@ -11,25 +11,14 @@ async function generateStartup(prompt) {
         },
 
         body: JSON.stringify({
-            idea: prompt
+            prompt
         })
 
     });
 
-    const result = await response.json();
+    if (!response.ok)
+        throw new Error("Backend Error");
 
-    sessionStorage.setItem(
-        "agentxData",
-        JSON.stringify(result.data)
-    );
-
-    return result.data;
-}
-
-function getStartupData() {
-
-    return JSON.parse(
-        sessionStorage.getItem("agentxData")
-    );
+    return await response.json();
 
 }
