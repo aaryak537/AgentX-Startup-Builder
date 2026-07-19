@@ -60,6 +60,32 @@ document.addEventListener("DOMContentLoaded", () => {
         "Start an Organic Food Brand.",
         "Create a Travel Planning AI."
     ];
+const generateBtn = document.getElementById("generateBtn");
+
+if(generateBtn){
+
+generateBtn.addEventListener("click",()=>{
+
+const idea=document.getElementById("ideaInput").value;
+
+localStorage.setItem("startupIdea",idea);
+
+window.location.href="loading.html";
+
+});
+
+}
+const startBtn=document.getElementById("startBuildingBtn");
+
+if(startBtn){
+
+startBtn.onclick=()=>{
+
+window.location.href="dashboard.html";
+
+}
+
+}
     let promptIndex = 0;
     let charIndex = 0;
     let deleting = false;

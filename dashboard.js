@@ -1,63 +1,18 @@
-const agents = [
+const startup = JSON.parse(
+    sessionStorage.getItem("startup")
+);
 
-"market",
+if(!startup){
 
-"branding",
-
-"business",
-
-"finance",
-
-"marketing",
-
-"social",
-
-"website",
-
-"competitor",
-
-"swot",
-
-"risk",
-
-"pricing",
-
-"roadmap",
-
-"legal",
-
-"pitch",
-
-"persona",
-
-"launch"
-
-];
-
-async function runAgent(agent){
-
-const status=document.getElementById(agent+"-status");
-
-status.innerHTML="Thinking...";
-
-status.style.color="orange";
-
-await new Promise(r=>setTimeout(r,1500));
-
-status.innerHTML="Completed";
-
-status.style.color="#00ff88";
+location.href="landingPage.html";
 
 }
 
-async function generateAll(){
+document.getElementById("startupName").innerText =
+startup.branding.startupName;
 
-for(const a of agents){
+document.getElementById("tagline").innerText =
+startup.branding.tagline;
 
-await runAgent(a);
-
-}
-
-alert("Startup Generated Successfully");
-
-}
+document.getElementById("score").innerText =
+startup.score.score;
