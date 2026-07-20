@@ -1,12 +1,4 @@
-/* =========================================================================
-   AgentX — Startup Generation Engine
-   Reads the one-line idea the user typed on the landing page, classifies it
-   into a category, and deterministically generates the content shown across
-   dashboard.html / overview.html / financial.html / branding.html / kit.html.
-   Everything is kept in localStorage so every page reads the same data.
-   ========================================================================= */
-
-const AgentX = (() => {
+window.AgentX = (() => {
 
   const IDEA_KEY = "agentx_idea";
   const STARTUP_KEY = "agentx_startup";
@@ -324,7 +316,7 @@ const AgentX = (() => {
     document.querySelectorAll("[data-startup-initials]").forEach((el) => (el.textContent = startup.initials));
   }
 
-  return {
+return {
     detectCategory,
     generateStartup,
     saveIdea,

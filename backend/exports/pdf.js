@@ -43,7 +43,7 @@ function generatePDF(startupData, res) {
 
     doc
         .fontSize(12)
-        .text(startupData.marketResearch || "No market research.");
+        .text(startupData.market || "No market research.");
 
     doc.moveDown();
 

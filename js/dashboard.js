@@ -1,17 +1,23 @@
-import { auth } from "./firebaseconfig.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { auth } from "../firebase/firebaseconfig.js";
+import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 onAuthStateChanged(auth, (user) => {
+    console.log("Current user:", user);
 
     if (!user) {
-        window.location.href = "login.html";
+        console.log("No user logged in.");
+        // window.location.href = "loginPage.html";
         return;
     }
 
-    console.log("Welcome", user.email);
-
+    console.log("Logged in:", user.email);
 });
+// ================= AI AGENTS =================
+
 const agents = [
+
     "market",
     "brandingAgent",
     "businessAgent",
@@ -25,132 +31,291 @@ const agents = [
     "legalAgent",
     "pitchAgent",
     "launchAgent"
+
 ];
 
-// Run one AI agent
+
+// ================= RUN SINGLE AGENT =================
+
 async function runAgent(agent, prompt) {
 
-    const status = document.getElementById(`${agent}-status`);
-    const result = document.getElementById(`${agent}-result`);
+
+    const status =
+        document.getElementById(`${agent}-status`);
+
+    const result =
+        document.getElementById(`${agent}-result`);
+
+
 
     if (status) {
+
         status.innerHTML = "🟡 Thinking...";
         status.style.color = "#ffaa00";
+
     }
 
+
     if (result) {
+
         result.innerHTML = "";
+
     }
+
+
 
     try {
 
-        const response = await fetch("/generate-agent", {
 
-            method: "POST",
+        const response = await fetch(
+            "http://localhost:3000/generate-agent",
+            {
 
-            headers: {
-                "Content-Type": "application/json"
-            },
+                method: "POST",
 
-            body: JSON.stringify({
+                headers: {
 
-                agent: agent,
+                    "Content-Type": "application/json"
 
-                prompt: prompt
+                },
 
-            })
 
-        });
+                body: JSON.stringify({
+
+                    agent: agent,
+                    prompt: prompt
+
+                })
+
+            }
+        );
+
+
 
         if (!response.ok) {
-            throw new Error("Server Error");
+
+            throw new Error("Backend Server Error");
+
         }
+
+
 
         const data = await response.json();
 
+
+
         if (status) {
+
             status.innerHTML = "✅ Completed";
             status.style.color = "#00ff88";
+
         }
 
+
+
         if (result) {
-            result.innerHTML = data.result || "Completed";
+
+            result.innerHTML =
+                data.result || "Completed";
+
         }
+
+
 
     }
 
-    catch (error) {
+    catch(error){
 
-        console.error(error);
 
-        if (status) {
+        console.error(
+            "Agent Error:",
+            error
+        );
+
+
+
+        if(status){
+
             status.innerHTML = "❌ Failed";
             status.style.color = "red";
+
         }
 
-        if (result) {
-            result.innerHTML = error.message;
+
+
+        if(result){
+
+            result.innerHTML =
+                error.message;
+
         }
+
 
     }
 
 }
 
-// Generate Startup
-async function generateAll() {
 
-    const promptBox = document.getElementById("startupPrompt");
-    const button = document.getElementById("generateBtn");
-    const progress = document.getElementById("progressBar");
 
-    if (!promptBox) {
-        alert("Prompt textbox not found.");
+// ================= GENERATE ALL AGENTS =================
+
+
+async function generateAll(){
+
+
+    const promptBox =
+        document.getElementById("startupPrompt");
+
+
+    const button =
+        document.getElementById("generateBtn");
+
+
+    const progress =
+        document.getElementById("progressBar");
+
+
+
+    if(!promptBox){
+
+        alert("Startup prompt box missing");
         return;
+
     }
 
-    const prompt = promptBox.value.trim();
 
-    if (prompt === "") {
-        alert("Please enter your startup idea.");
+
+    const prompt =
+        promptBox.value.trim();
+
+
+
+    if(prompt === ""){
+
+        alert("Enter startup idea");
         return;
+
     }
 
-    if (button) {
+
+
+    if(button){
+
         button.disabled = true;
-        button.innerHTML = "Generating...";
+        button.innerHTML =
+            "Generating...";
+
     }
 
-    if (progress) {
-        progress.max = agents.length;
+
+
+    if(progress){
+
+        progress.max =
+            agents.length;
+
         progress.value = 0;
+
     }
 
-    for (let i = 0; i < agents.length; i++) {
 
-        await runAgent(agents[i], prompt);
 
-        if (progress) {
-            progress.value = i + 1;
+
+    for(let i = 0; i < agents.length; i++){
+
+
+        await runAgent(
+            agents[i],
+            prompt
+        );
+
+
+        if(progress){
+
+            progress.value =
+                i + 1;
+
         }
 
+
     }
 
-    if (button) {
+
+
+
+    if(button){
+
         button.disabled = false;
-        button.innerHTML = "Generate Startup";
+
+        button.innerHTML =
+            "Generate Startup";
+
     }
 
-    alert("🎉 Startup Generated Successfully!");
+
+// ================= SAVE STARTUP DATA =================
+
+const startupData = {
+    prompt: prompt,
+    generatedAt: new Date().toISOString(),
+    progress: 100
+};
+
+agents.forEach(agent => {
+
+    const result = document.getElementById(`${agent}-result`);
+
+    startupData[agent] = result
+        ? result.innerHTML
+        : "";
+
+});
+
+// Optional fields for Overview page
+startupData.name = prompt;
+startupData.idea = prompt;
+startupData.industry = "Generated by AI";
+startupData.targetMarket = "";
+startupData.businessModel = "";
+startupData.problem = "";
+startupData.solution = "";
+startupData.tagline = "";
+
+localStorage.setItem(
+    "startupData",
+    JSON.stringify(startupData)
+);
+
+console.log("Startup saved:", startupData);
+    alert(
+        "🎉 Startup Generated Successfully!"
+    );
 
 }
 
-// Auto-connect button
-window.onload = () => {
 
-    const btn = document.getElementById("generateBtn");
 
-    if (btn) {
-        btn.addEventListener("click", generateAll);
+// ================= BUTTON CONNECTION =================
+
+
+document.addEventListener(
+"DOMContentLoaded",
+()=>{
+
+
+    const button =
+        document.getElementById("generateBtn");
+
+
+
+    if(button){
+
+        button.addEventListener(
+            "click",
+            generateAll
+        );
+
     }
 
-};
+
+});

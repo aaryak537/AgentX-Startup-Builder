@@ -132,16 +132,68 @@
 
     </main>
 </div>
+<script src="engine.js"></script>
+<script src="script.js"></script>
 
+<script type="module" src="js/Save.js"></script>
 <script>
 (function () {
-    const s = AgentX.loadStartup();
-    AgentX.paintTopbarMeta(s);
-    const p = s.palette;
+ const s =
+JSON.parse(localStorage.getItem("startupData")) || {};
+document.querySelector("[data-startup-name]").textContent =
+s.name || "AgentX";
 
-    document.getElementById("logoBlock").style.background = `linear-gradient(135deg, ${p[0]}, ${p[1]})`;
-    document.getElementById("logoInitialsBig").textContent = s.initials;
-    document.getElementById("logoNameBig").textContent = s.name;
+s.name = s.name || "AgentX";
+
+s.tagline = s.tagline || "Building Tomorrow, Today";
+
+s.initials = s.name
+.split(" ")
+.map(word => word[0])
+.join("")
+.substring(0,2)
+.toUpperCase();
+
+s.category = s.category || "generic";
+
+s.icon = "🚀";
+
+s.palette = s.palette || [
+"#2563EB",
+"#10B981",
+"#F8FAFC",
+"#111827"
+];
+    const p = s.palette;
+const prompt =
+encodeURIComponent(
+`Modern premium vector logo for ${s.name},
+blue gradient,
+minimal,
+AI startup,
+white background,
+flat design`
+);
+
+document.getElementById("logoBlock").innerHTML = `
+<img
+src="https://image.pollinations.ai/prompt/${prompt}"
+style="
+width:220px;
+height:220px;
+object-fit:contain;
+background:white;
+padding:20px;
+border-radius:18px;
+">
+
+<div style="
+margin-top:12px;
+font-weight:700;
+font-size:18px;">
+${s.name}
+</div>
+`;
 
     const variants = [
         { bg: p[0], text: "#fff" },
@@ -192,9 +244,6 @@
     });
 })();
 </script>
-<script type="module" src="js/Branding.js"></script>
-<script src="engine.js"></script>
-<script src="script.js"></script>
-<script type="module" src="js/Save.js"></script>
+
 </body>
 </html>

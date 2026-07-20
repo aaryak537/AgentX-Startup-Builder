@@ -52,7 +52,9 @@
 
     </main>
 </div>
-
+<script src="engine.js"></script>
+<script src="script.js"></script>
+<script type="module" src="js/dashboard.js"></script>
 <script>
 (function () {
     const startup = AgentX.loadStartup();
@@ -125,10 +127,6 @@
         document.getElementById("overallPct").textContent = overall + "%";
         return overall;
     }
-
-    AGENTS.forEach((a) => paint(a, progress[a.key]));
-    updateOverall();
-
     let allDone = AGENTS.every((a) => progress[a.key] >= 100);
 
     if (!allDone) {
@@ -166,8 +164,6 @@
     }
 })();
 </script>
-<script type="module" src="js/dashboard.js"></script>
-<script src="engine.js"></script>
-<script src="scrpit.js"></script>
+
 </body>
 </html>

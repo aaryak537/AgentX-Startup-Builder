@@ -1,104 +1,117 @@
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", () => {
 
-    // -----------------------------
-    // Get Startup ID from URL
-    // -----------------------------
-    const params = new URLSearchParams(window.location.search);
-    const startupId = params.get("id");
+    const s = AgentX.loadStartup();
 
-    if (!startupId) {
-        console.error("No Startup ID found.");
+    if (!s) {
+        console.error("No startup data found.");
         return;
     }
 
-    // -----------------------------
-    // Load Startup Data
-    // -----------------------------
-    let startup = null;
-
-    try {
-
-        // If engine.js contains loadStartup()
-        startup = await AgentX.loadStartup(startupId);
-
-    } catch (error) {
-
-        console.error(error);
-
-    }
-
-    if (!startup) {
-        console.log("Startup not found");
-        return;
-    }
-
-    // -----------------------------
-    // Populate Overview
-    // -----------------------------
-
-    setText("startupName", startup.name);
-    setText("startupIdea", startup.idea);
-    setText("industry", startup.industry);
-    setText("targetMarket", startup.targetMarket);
-    setText("businessModel", startup.businessModel);
-    setText("problem", startup.problem);
-    setText("solution", startup.solution);
-    setText("tagline", startup.tagline);
-
-    // -----------------------------
-    // Optional Progress Bar
-    // -----------------------------
-
-    if (document.getElementById("progressFill")) {
-
-        document.getElementById("progressFill").style.width =
-            (startup.progress || 0) + "%";
-
-    }
-
-    // -----------------------------
-    // Navigation Buttons
-    // -----------------------------
-
-    const pages = {
-
-        marketBtn: "marketResearch.html",
-        brandingBtn: "branding.html",
-        financialBtn: "financial.html",
-        marketingBtn: "marketing.html",
-        dashboardBtn: "dashboard.html"
-
-    };
-
-    Object.keys(pages).forEach(id => {
-
-        const btn = document.getElementById(id);
-
-        if (!btn) return;
-
-        btn.addEventListener("click", () => {
-
-            window.location.href =
-                `${pages[id]}?id=${startupId}`;
-
-        });
-
-    });
+    loadOverview(s);
 
 });
 
-// =====================================
-// Helper Function
-// =====================================
 
-function setText(id, value) {
+function loadOverview(s){
 
-    const el = document.getElementById(id);
+    const setText = (id, value) => {
 
-    if (el) {
+        const el = document.getElementById(id);
 
-        el.textContent = value || "-";
+        if(el){
+            el.textContent = value ?? "";
+        }
+        else{
+            console.warn("Missing ID:", id);
+        }
 
+    };
+
+
+    setText("startupTagline", s.tagline);
+
+    setText("scoreVal", s.score);
+
+    setText("logoInitials", s.initials);
+
+    setText("logoName", s.name);
+
+    setText(
+        "summaryText",
+        s.businessPlan?.executiveSummary || "AI Generated Startup"
+    );
+
+
+    setText(
+        "marketLabelText",
+        s.marketLabel
+    );
+
+
+    setText(
+        "marketSizeText",
+        "$" + s.marketSize + "B"
+    );
+
+
+    setText(
+        "fhInvestment",
+        AgentX.fmtMoney(s.financial?.investment || 0)
+    );
+
+
+    setText(
+        "fhRevenue",
+        AgentX.fmtMoney(s.financial?.revenueY1 || 0)
+    );
+
+
+    setText(
+        "fhMargin",
+        Math.round(
+            ((s.financial?.netProfitY1 || 0) /
+            (s.financial?.revenueY1 || 1)) * 100
+        ) + "%"
+    );
+
+
+    setText(
+        "readyPct",
+        s.launchReadiness + "%"
+    );
+
+
+    const chipRow = document.getElementById("chipRow");
+
+    if(chipRow){
+        chipRow.innerHTML =
+        `
+        <span class="chip">${s.icon} ${s.category}</span>
+        <span class="chip">Score ${s.score}/100</span>
+        <span class="chip">${s.launchReadiness}% launch-ready</span>
+        `;
+    }
+
+
+    const logoPlate = document.getElementById("logoPlate");
+
+    if(logoPlate && s.palette){
+        logoPlate.style.background =
+        `linear-gradient(135deg,${s.palette[0]},${s.palette[1]})`;
+    }
+
+
+    const scoreRing = document.getElementById("scoreRing");
+
+    if(scoreRing){
+        scoreRing.style.setProperty("--p",s.score);
+    }
+
+
+    const readyRing = document.getElementById("readyRing");
+
+    if(readyRing){
+        readyRing.style.setProperty("--p",s.launchReadiness);
     }
 
 }

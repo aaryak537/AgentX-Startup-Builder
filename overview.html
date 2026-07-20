@@ -46,11 +46,11 @@
         <div class="overview-hero">
             <div class="panel">
                 <div class="panel-head">
-                    <h3>Startup name</h3>
+                    <h3 id="startupName">Startup name</h3>
                     <span class="muted">Editable</span>
                 </div>
                 <div style="font-size:1.6rem;font-weight:800;margin-bottom:6px" data-startup-name>Startup Name</div>
-                <p class="muted" style="font-size:.85rem;color:var(--text-dim)" id="taglineText">Tagline</p>
+                <p class="muted" style="font-size:.85rem;color:var(--text-dim)" id="startupTagline">Tagline</p>
                 <div class="chip-row" id="chipRow"></div>
             </div>
             <div class="panel score-card">
@@ -118,48 +118,11 @@
 
     </main>
 </div>
-
-<script>
-(function () {
-    const s = AgentX.loadStartup();
-    AgentX.paintTopbarMeta(s);
-
-    document.getElementById("taglineText").textContent = s.tagline;
-    document.getElementById("chipRow").innerHTML =
-        `<span class="chip">${s.icon} ${s.category}</span><span class="chip">Score ${s.score}/100</span><span class="chip">${s.launchReadiness}% launch-ready</span>`;
-
-    document.getElementById("scoreRing").style.setProperty("--p", s.score);
-    document.getElementById("scoreVal").textContent = s.score;
-
-    document.getElementById("logoPlate").style.background = `linear-gradient(135deg, ${s.palette[0]}, ${s.palette[1]})`;
-    document.getElementById("logoInitials").textContent = s.initials;
-    document.getElementById("logoName").textContent = s.name;
-
-    document.getElementById("summaryText").textContent = s.businessPlan.executiveSummary;
-
-    document.getElementById("marketLabelText").textContent = s.marketLabel;
-    document.getElementById("marketSizeText").textContent = "$" + s.marketSize + "B";
-    const bars = [0.4, 0.55, 0.7, 0.62, 0.85, 1];
-    document.getElementById("miniBars").innerHTML = bars.map(h => `<div class="bar" style="height:${h*100}%"></div>`).join("");
-
-    document.getElementById("competitorList").innerHTML = s.competitors.map(c => `
-        <div style="display:flex;justify-content:space-between;align-items:center;background:var(--surface-strong);padding:10px 14px;border-radius:10px">
-            <span style="font-size:.85rem;font-weight:600">${c.name}</span>
-            <span class="chip">${c.tag}</span>
-        </div>`).join("");
-
-    document.getElementById("fhInvestment").textContent = AgentX.fmtMoney(s.financial.investment);
-    document.getElementById("fhRevenue").textContent = AgentX.fmtMoney(s.financial.revenueY1);
-    document.getElementById("fhMargin").textContent = Math.round((s.financial.netProfitY1 / s.financial.revenueY1) * 100) + "%";
-
-    document.getElementById("readyRing").style.setProperty("--p", s.launchReadiness);
-    document.getElementById("readyPct").textContent = s.launchReadiness + "%";
-})();
-</script>
+<script src="engine.js"></script>
+<script src="script.js"></script>
 <script type="module" src="js/Overview.js"></script>
-<script type="module" src="engine.js"></script>
-<script type="module" src="script.js"></script>
+
 <script type="module" src="firebase/firebaseConfig.js"></script>
-<script type="module" src="firebase/firebases.js"></script>
+
 </body>
 </html>
