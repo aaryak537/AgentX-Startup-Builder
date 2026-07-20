@@ -1,4 +1,4 @@
-import { generateAI } from "../services/openrouterService.js";
+import { generateAI } from "../ai/openrouter"
 
 export async function startupScoringAgent(prompt){
 

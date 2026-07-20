@@ -195,6 +195,7 @@ NAVBAR
     font-size:28px;
     font-weight:800;
     background:var(--gradient);
+    background-clip:text;
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
 }
@@ -380,7 +381,7 @@ display:none;
 .hero h1 span{
 
     background:var(--gradient);
-
+    background-clip:text;
     -webkit-background-clip:text;
 
     -webkit-text-fill-color:transparent;
@@ -890,6 +891,9 @@ width:100%;
         rgba(79,140,255,.5),
         rgba(139,92,246,.45),
         rgba(34,211,238,.35));
+        mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
 
     -webkit-mask:
         linear-gradient(#fff 0 0) content-box,
@@ -1640,6 +1644,7 @@ footer::before{
     margin-bottom:18px;
     font-size:34px;
     background:var(--gradient);
+    background-clip:text;
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
 }
@@ -1740,6 +1745,7 @@ footer::before{
 ====================================================== */
 .text-gradient{
     background:var(--gradient);
+    background-clip:text;
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
 }
@@ -3045,20 +3051,16 @@ font-size:2.2rem;
 
 }
 
-.finance-table{
+    .finance-table{
 
-display:block;
+    display:block;
 
-overflow-x:auto;
+    overflow-x:auto;
 
-white-space:nowrap;
+    white-space:nowrap;
 
-}
-
+    }
 .stat-card h2{
-
-font-size:1.6rem;
-
-}
-
+    font-size:1.6rem;
+    }
 }

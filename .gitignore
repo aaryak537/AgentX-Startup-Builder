@@ -144,3 +144,5 @@ vite.config.ts.timestamp-*
 
 node_modules
 .env
+.venv/
+startup-builder-ea49c-firebase-adminsdk-fbsvc-79cdc890f6

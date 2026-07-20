@@ -1,9 +1,3 @@
-// ===============================================
-// AgentX Startup Builder
-// services/prompts.js
-// AI Prompt Library
-// ===============================================
-
 const SYSTEM_PROMPT = `
 You are AgentX, an advanced multi-agent AI startup builder.
 

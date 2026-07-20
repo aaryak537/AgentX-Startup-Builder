@@ -1,16 +1,4 @@
-/**
- * ==========================================================
- * AgentX Startup Builder
- * Market Research Agent
- * ==========================================================
- * Responsibilities:
- * - Analyze startup idea
- * - Generate market research
- * - Return structured JSON
- * ==========================================================
- */
-
-const { askAI } = require("../services/openrouter");
+const { askAI } = require("../ai/openrouter");
 
 async function marketAgent(startupIdea) {
 
@@ -101,4 +89,4 @@ Return ONLY valid JSON.
 
 }
 
-module.exports = marketAgent;
+module.exports = market;

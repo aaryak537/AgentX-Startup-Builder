@@ -1,37 +1,43 @@
-const admin = require("firebase-admin");
+const STORAGE_KEY = "agentx_startup_data";
 
-// Make sure db is initialized in your Firebase config
-// const db = admin.firestore();
-const admin = require("firebase-admin");
-
-admin.initializeApp({
-    credential: admin.credential.cert(require("./serviceAccountKey.json"))
-});
-
-const db = admin.firestore();
-
-module.exports = { admin, db };
-async function saveStartup(req, result) {
+/**
+ * Save startup data
+ */
+function saveStartup(data) {
     try {
-        const prompt = req.body.prompt;
-
-        const docRef = await db.collection("startups").add({
-            uid: req.user.uid,
-            prompt: prompt,
-            startupData: result,
-            createdAt: admin.firestore.FieldValue.serverTimestamp()
-        });
-
-        return {
-            success: true,
-            id: docRef.id
-        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        console.log("✅ Startup data saved.");
     } catch (error) {
         console.error("Error saving startup:", error);
-        throw error;
     }
 }
 
-module.exports = {
-    saveStartup
-};
+/**
+ * Load startup data
+ */
+function loadStartup() {
+    try {
+        const data = localStorage.getItem(STORAGE_KEY);
+        return data ? JSON.parse(data) : {};
+    } catch (error) {
+        console.error("Error loading startup:", error);
+        return {};
+    }
+}
+
+/**
+ * Update a single field
+ */
+function updateStartup(key, value) {
+    const startup = loadStartup();
+    startup[key] = value;
+    saveStartup(startup);
+}
+
+/**
+ * Clear all startup data
+ */
+function clearStartup() {
+    localStorage.removeItem(STORAGE_KEY);
+    console.log("🗑 Startup data cleared.");
+}

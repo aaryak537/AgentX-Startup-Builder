@@ -1,26 +1,30 @@
-// ==========================
-// AgentX Startup Builder
-// dashboard.js
-// ==========================
+import { auth } from "./firebaseconfig.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-// List of AI Agents
+onAuthStateChanged(auth, (user) => {
+
+    if (!user) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    console.log("Welcome", user.email);
+
+});
 const agents = [
     "market",
-    "branding",
-    "business",
-    "finance",
-    "marketing",
-    "social",
-    "website",
+    "brandingAgent",
+    "businessAgent",
+    "financeAgent",
+    "socialAgent",
+    "websiteAgent",
     "competitor",
-    "swot",
-    "risk",
-    "pricing",
+    "swotAgent",
+    "riskAgent",
     "roadmap",
-    "legal",
-    "pitch",
-    "persona",
-    "launch"
+    "legalAgent",
+    "pitchAgent",
+    "launchAgent"
 ];
 
 // Run one AI agent

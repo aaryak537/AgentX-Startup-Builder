@@ -1,17 +1,23 @@
-export const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT.appspot.com",
-    messagingSenderId: "XXXXXXXXXX",
-    appId: "YOUR_APP_ID"
+// firebaseConfig.js
+
+// Import Firebase SDK
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+// Replace these values with your Firebase project's configuration
+const firebaseConfig = {
+    projectId: "startup-builder-ea49c",
+    messagingSenderId: "1029500287535",
+    appId: "1:1029500287535:web:e9cf8100efb96c6674a4da"
 };
-import admin from "firebase-admin";
-import serviceAccount from "./serviceAccountKey.json" assert { type: "json" };
+  
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount)
-});
+// Initialize services
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-export { admin };
-export const db = admin.firestore();
+// Export for use in other files
+export { app, auth, db };

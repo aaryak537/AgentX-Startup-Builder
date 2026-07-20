@@ -1,6 +1,6 @@
 const ai = require("../ai/aiClient");
 
-async function businessPlanAgent(startupIdea) {
+async function businessAgent(startupIdea) {
 
     const prompt = `
 Create a professional startup business plan.
@@ -30,4 +30,4 @@ ${startupIdea}
     return await ai(prompt);
 }
 
-module.exports = businessPlanAgent;
+module.exports = businessAgent;

@@ -28,4 +28,4 @@ return await ai(prompt);
 
 }
 
-module.exports=socialMediaAgent;
+module.exports=socialAgent;

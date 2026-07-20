@@ -3,19 +3,19 @@ const router = express.Router();
 
 const orchestrator = require("../agents/orchestrator");
 
-// Generate complete startup
+// Run all AI agents
 router.post("/generate", async (req, res) => {
     try {
-        const { idea } = req.body;
+        const { startupIdea } = req.body;
 
-        if (!idea) {
+        if (!startupIdea) {
             return res.status(400).json({
                 success: false,
                 message: "Startup idea is required."
             });
         }
 
-        const result = await orchestrator.generateStartup(idea);
+        const result = await orchestrator.generateStartup(startupIdea);
 
         res.json({
             success: true,
@@ -23,13 +23,22 @@ router.post("/generate", async (req, res) => {
         });
 
     } catch (error) {
-        console.error(error);
+        console.error("Agent Error:", error);
 
         res.status(500).json({
             success: false,
-            message: "AI generation failed."
+            message: "Failed to generate startup plan.",
+            error: error.message
         });
     }
+});
+
+// Health Check
+router.get("/status", (req, res) => {
+    res.json({
+        success: true,
+        status: "Agent service is running."
+    });
 });
 
 module.exports = router;

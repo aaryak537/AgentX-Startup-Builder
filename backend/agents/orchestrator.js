@@ -1,15 +1,15 @@
-const brandingAgent = require("./brandingAgent");
-const financeAgent = require("./financeAgent");
-const businessPlanAgent = require("./businessPlanAgent");
-const websiteAgent = require("./websiteAgent");
-const socialMediaAgent = require("./socialMediaAgent");
-const competitorAgent = require("./competitorAgent");
-const pitchDeckAgent = require("./pitchDeckAgent");
-const swotAgent = require("./swotAgent");
-const roadmapAgent = require("./roadmapAgent");
-const launchAgent = require("./launchAgent");
-const legalAgent = require("./legalAgent");
-const riskAgent = require("./riskAgent");
+const brandingAgent = require(".agents/brandingAgent");
+const financeAgent = require(".agents/financeAgent");
+const businessAgent = require(".agents/businessAgent");
+const websiteAgent = require(".agents/websiteAgent");
+const socialAgent = require(".agents/socialAgent");
+const competitorAgent = require(".agents/competitor");
+const pitchAgent = require(".agents/pitchAgent");
+const swotAgent = require(".agents/swotAgent");
+const roadmap = require(".agents/roadmap");
+const launchAgent = require(".agents/launchAgent");
+const legalAgent = require(".agents/legalAgent");
+const riskAgent = require(".agents/riskAgent");
 
 /**
  * Executes an agent safely without crashing the entire workflow.
@@ -65,19 +65,19 @@ async function orchestrator(startupIdea) {
 
         runAgent("Finance Agent", financeAgent, startupIdea),
 
-        runAgent("Business Plan Agent", businessPlanAgent, startupIdea),
+        runAgent("Business Plan Agent", businessAgent, startupIdea),
 
         runAgent("Website Agent", websiteAgent, startupIdea),
 
-        runAgent("Social Media Agent", socialMediaAgent, startupIdea),
+        runAgent("Social Media Agent", socialAgent, startupIdea),
 
-        runAgent("Competitor Agent", competitorAgent, startupIdea),
+        runAgent("Competitor Agent", competitor, startupIdea),
 
-        runAgent("Pitch Deck Agent", pitchDeckAgent, startupIdea),
+        runAgent("Pitch Deck Agent", pitchAgent, startupIdea),
 
         runAgent("SWOT Agent", swotAgent, startupIdea),
 
-        runAgent("Roadmap Agent", roadmapAgent, startupIdea),
+        runAgent("Roadmap Agent", roadmap, startupIdea),
 
         runAgent("Launch Agent", launchAgent, startupIdea),
 

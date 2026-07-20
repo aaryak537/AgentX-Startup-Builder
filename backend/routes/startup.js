@@ -1,12 +1,3 @@
-/**
- * ==========================================================
- * AgentX Startup Builder
- * File: backend/routes/startup.js
- * Description:
- * Startup generation API routes
- * ==========================================================
- */
-
 const express = require("express");
 const fs = require("fs");
 const path = require("path");

@@ -1,30 +1,81 @@
-// Load startup data from localStorage
-const startup = JSON.parse(localStorage.getItem("startup"));
+document.addEventListener("DOMContentLoaded", () => {
+    loadFinancialData();
 
-// Check if startup and finance data exist
-if (startup && startup.finance) {
+    const saveBtn = document.getElementById("saveFinancial");
+    if (saveBtn) {
+        saveBtn.addEventListener("click", saveFinancialData);
+    }
+});
 
-    const finance = startup.finance;
+// Load startup information
+function loadFinancialData() {
+    const startup = JSON.parse(localStorage.getItem("startupData")) || {};
 
-    document.getElementById("investment").textContent =
-        finance.estimatedInvestment || "Not Available";
+    document.getElementById("startupName").textContent =
+        startup.name || "My Startup";
 
-    document.getElementById("expenses").textContent =
-        finance.monthlyExpenses || "Not Available";
+    document.getElementById("investment").value =
+        startup.investment || 500000;
 
-    document.getElementById("revenue").textContent =
-        finance.monthlyRevenue || "Not Available";
+    document.getElementById("monthlyRevenue").value =
+        startup.monthlyRevenue || 100000;
+
+    document.getElementById("monthlyExpense").value =
+        startup.monthlyExpense || 60000;
+
+    calculateFinancials();
+}
+
+// Calculate profit and break-even
+function calculateFinancials() {
+
+    const investment = Number(document.getElementById("investment").value);
+    const revenue = Number(document.getElementById("monthlyRevenue").value);
+    const expense = Number(document.getElementById("monthlyExpense").value);
+
+    const profit = revenue - expense;
+
+    let breakEven = "-";
+
+    if (profit > 0) {
+        breakEven = (investment / profit).toFixed(1) + " Months";
+    }
+
+    document.getElementById("profit").textContent =
+        "₹" + profit.toLocaleString();
 
     document.getElementById("breakEven").textContent =
-        finance.breakEven || "Not Available";
-
-} else {
-
-    console.error("Finance data not found!");
-
-    document.getElementById("investment").textContent = "₹0";
-    document.getElementById("expenses").textContent = "₹0";
-    document.getElementById("revenue").textContent = "₹0";
-    document.getElementById("breakEven").textContent = "N/A";
-
+        breakEven;
 }
+
+// Save Data
+function saveFinancialData() {
+
+    const startup = JSON.parse(localStorage.getItem("startupData")) || {};
+
+    startup.investment =
+        Number(document.getElementById("investment").value);
+
+    startup.monthlyRevenue =
+        Number(document.getElementById("monthlyRevenue").value);
+
+    startup.monthlyExpense =
+        Number(document.getElementById("monthlyExpense").value);
+
+    localStorage.setItem("startupData", JSON.stringify(startup));
+
+    calculateFinancials();
+
+    alert("Financial data saved successfully!");
+}
+
+// Auto calculate while typing
+["investment", "monthlyRevenue", "monthlyExpense"].forEach(id => {
+
+    const element = document.getElementById(id);
+
+    if (element) {
+        element.addEventListener("input", calculateFinancials);
+    }
+
+});

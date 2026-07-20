@@ -118,8 +118,7 @@
 
     </main>
 </div>
-<script src="Overview.js"></script>
-<script src="engine.js"></script>
+
 <script>
 (function () {
     const s = AgentX.loadStartup();
@@ -157,5 +156,10 @@
     document.getElementById("readyPct").textContent = s.launchReadiness + "%";
 })();
 </script>
+<script type="module" src="js/Overview.js"></script>
+<script type="module" src="engine.js"></script>
+<script type="module" src="script.js"></script>
+<script type="module" src="firebase/firebaseConfig.js"></script>
+<script type="module" src="firebase/firebases.js"></script>
 </body>
 </html>

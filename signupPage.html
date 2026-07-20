@@ -12,7 +12,7 @@
 
         <!-- SAME CSS FOR ALL PAGES -->
         <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="engine.css">
+        <link rel="stylesheet" href="workspace.css">
     </head>
     <body>
         <!-- ================= NAVBAR ================= -->
@@ -24,6 +24,7 @@
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="index.html#features">Features</a></li>
+                <li><a href="index.html#about">About</a></li>
             </ul>
         </nav>
         <!-- ================= SIGNUP ================= -->
@@ -84,7 +85,7 @@
                                 placeholder="Confirm password"
                                 required>
                         </div>
-                        <button class="btn-primary auth-btn"><a href="dashboard.html">
+                        <button type="submit" class="btn-primary auth-btn"><a href="dashboard.html">
                             Create Account</a>
                         </button>
                     </form>
@@ -92,8 +93,8 @@
                         <span>OR</span>
                     </div>
                     <button class="google-btn">
-                        <img src="assets/icons/google.svg"
-                            width="20">
+                        <img src="google.png" alt="googleLogo"
+                            width="20" height="20">
                         Continue with Google
                     </button>
                     <p class="auth-footer">
@@ -106,6 +107,8 @@
             </div>
         </section>
         <script src="script.js"></script>
-        <script src="engine.js"></script>
+        <script src="engine.js">window.location.href = "dashboard.html";</script>
+        <script type="module" src="firebase/firebaseConfig.js"></script>
+        <script type="module" src="firebase/Authentication.js"></script>
     </body>
 </html>

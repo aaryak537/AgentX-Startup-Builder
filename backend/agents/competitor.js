@@ -1,6 +1,6 @@
 const ai=require("../ai/aiClient");
 
-async function competitorAgent(startupIdea){
+async function competitor(startupIdea){
 
 const prompt=`
 
@@ -30,4 +30,4 @@ return await ai(prompt);
 
 }
 
-module.exports=competitorAgent;
+module.exports=competitor;

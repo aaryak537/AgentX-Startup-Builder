@@ -1,26 +1,20 @@
-import admin from "firebase-admin";
-import serviceAccount from "./serviceAccountKey.json" assert { type: "json" };
-
-
-
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount)
-});
-
-const db = admin.firestore();
-
-export { admin, db };
 const admin = require("firebase-admin");
+const path = require("path");
 
-const serviceAccount = require("./serviceAccountKey.json");
+// Path to your Firebase service account key
+const serviceAccount = require(path.join(__dirname, "serviceAccountKey.json"));
 
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount)
-});
+if (!admin.apps.length) {
+    admin.initializeApp({
+        credential: admin.credential.cert(serviceAccount)
+    });
+}
 
 const db = admin.firestore();
+const auth = admin.auth();
 
 module.exports = {
     admin,
-    db
+    db,
+    auth
 };

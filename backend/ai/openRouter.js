@@ -1,64 +1,46 @@
-import os
-import requests
-from dotenv import load_dotenv
+// openrouter.js
 
+const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
 
-load_dotenv()
+const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
 
-
-OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
-
-
-def ask_ai(system_prompt, user_prompt):
-
-    url = "https://openrouter.ai/api/v1/chat/completions"
-
-
-    headers = {
-        "Authorization": f"Bearer {OPENROUTER_API_KEY}",
-        "Content-Type": "application/json"
-    }
-
-
-    data = {
-
-        "model": "openai/gpt-4o-mini",
-
-        "messages": [
-
-            {
-                "role": "system",
-                "content": system_prompt
+async function askAI(prompt) {
+    try {
+        const response = await fetch(OPENROUTER_URL, {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
+                "Content-Type": "application/json",
+                "HTTP-Referer": window.location.origin,
+                "X-OpenRouter-Title": "AgentX Startup Builder"
             },
+            body: JSON.stringify({
+                model: "openrouter/auto",
+                messages: [
+                    {
+                        role: "system",
+                        content: "You are an AI Startup Builder. Generate professional startup plans, branding, market research, finance, marketing and business reports."
+                    },
+                    {
+                        role: "user",
+                        content: prompt
+                    }
+                ],
+                temperature: 0.7,
+                max_tokens: 2000
+            })
+        });
 
-            {
-                "role": "user",
-                "content": user_prompt
-            }
-
-        ],
-
-        "temperature":0.7
-
-    }
-
-
-    response = requests.post(
-        url,
-        headers=headers,
-        json=data
-    )
-
-
-    result = response.json()
-
-
-    try:
-
-        return result["choices"][0]["message"]["content"]
-
-    except:
-
-        return {
-            "error": result
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
         }
+
+        const data = await response.json();
+
+        return data.choices[0].message.content;
+
+    } catch (error) {
+        console.error("OpenRouter Error:", error);
+        return "Error generating AI response.";
+    }
+}

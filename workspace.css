@@ -1,14 +1,3 @@
-/* ==========================================================================
-   AgentX — Workspace Design System
-   Shared styles for: dashboard.html, overview.html, financial.html,
-   branding.html, kit.html
-   Extends the existing landing/auth theme (dark navy + blue→purple accent).
-   NOTE: style.css was not available when this was generated, so these
-   tokens are inferred from landingPage.html / script.js (navbar scroll
-   color rgba(7,11,20), hover accent rgba(79,140,255)). Adjust the
-   variables below if they don't line up with your real style.css.
-   ========================================================================== */
-
 :root {
   --bg: #070b14;
   --bg-soft: #0b1120;
