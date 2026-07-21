@@ -1,16 +1,15 @@
-const brandingAgent = require(".agents/brandingAgent");
-const financeAgent = require(".agents/financeAgent");
-const businessAgent = require(".agents/businessAgent");
-const websiteAgent = require(".agents/websiteAgent");
-const socialAgent = require(".agents/socialAgent");
-const competitorAgent = require(".agents/competitor");
-const pitchAgent = require(".agents/pitchAgent");
-const swotAgent = require(".agents/swotAgent");
-const roadmap = require(".agents/roadmap");
-const launchAgent = require(".agents/launchAgent");
-const legalAgent = require(".agents/legalAgent");
-const riskAgent = require(".agents/riskAgent");
-
+const brandingAgent = require("./brandingAgent");
+const financeAgent = require("./financeAgent");
+const businessAgent = require("./businessAgent");
+const websiteAgent = require("./websiteAgent");
+const socialAgent = require("./socialAgent");
+const competitorAgent = require("./competitor");
+const pitchAgent = require("./pitchAgent");
+const swotAgent = require("./swotAgent");
+const roadmapAgent = require("./roadmap");
+const launchAgent = require("./launchAgent");
+const legalAgent = require("./legalAgent");
+const riskAgent = require("./riskAgent");
 /**
  * Executes an agent safely without crashing the entire workflow.
  */
@@ -70,14 +69,12 @@ async function orchestrator(startupIdea) {
         runAgent("Website Agent", websiteAgent, startupIdea),
 
         runAgent("Social Media Agent", socialAgent, startupIdea),
-
-        runAgent("Competitor Agent", competitor, startupIdea),
+runAgent("Competitor Agent", competitorAgent, startupIdea),
 
         runAgent("Pitch Deck Agent", pitchAgent, startupIdea),
 
         runAgent("SWOT Agent", swotAgent, startupIdea),
-
-        runAgent("Roadmap Agent", roadmap, startupIdea),
+runAgent("Roadmap Agent", roadmapAgent, startupIdea),
 
         runAgent("Launch Agent", launchAgent, startupIdea),
 
@@ -129,4 +126,4 @@ async function orchestrator(startupIdea) {
 
 }
 
-module.exports = orchestrator;
+const startupResult = await orchestrator(prompt);

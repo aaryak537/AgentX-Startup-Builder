@@ -1,7 +1,15 @@
 import { auth } from "../firebase/firebaseconfig.js";
-import {
-    onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
+
+onAuthStateChanged(auth, (user) => {
+    console.log("User:", user);
+
+    if (user) {
+        console.log("Email:", user.email);
+    } else {
+        console.log("No user");
+    }
+});
 
 onAuthStateChanged(auth, (user) => {
     console.log("Current user:", user);

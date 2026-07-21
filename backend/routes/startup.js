@@ -93,13 +93,12 @@ router.post("/generate", async (req, res) => {
 
         console.log("Generating Startup...");
         console.log(prompt);
+console.log("Prompt:", prompt);
 
-        // --------------------------------------
-        // Run AI Orchestrator
-        // --------------------------------------
+const startupResult = await orchestrator(prompt);
 
-        const startupResult = await orchestrator.generate(prompt);
-
+console.log("AI Result:", startupResult);
+console.log("startupResult:", startupResult);
         const startup = {
 
             id: generateId(),

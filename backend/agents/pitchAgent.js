@@ -34,4 +34,4 @@ return await ai(prompt);
 
 }
 
-module.exports=pitchAgent;
+module.exports=pitchDeckAgent;

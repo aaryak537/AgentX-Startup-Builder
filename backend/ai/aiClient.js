@@ -1,10 +1,10 @@
 const axios = require("axios");
 const MODELS = require("./models");
 
-const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
+const OPENROUTER_API_KEY =process.env.OPENROUTER_API_KEY;
 
 const BASE_URL = "https://openrouter.ai/api/v1/chat/completions";
-
+console.log("API Key Loaded:", !!process.env.OPENROUTER_API_KEY);
 /**
  * Generate AI response
  * @param {string} prompt

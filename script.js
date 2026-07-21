@@ -179,7 +179,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
                 window.location.href =
-                "loading.html";
+                "dashboard.html";
 
             }
         );
@@ -440,6 +440,11 @@ document.querySelectorAll(
 
 
 });
+const btn = document.getElementById("signupBtn");
+
+if (btn) {
+    btn.addEventListener("click", signup);
+}
 document.addEventListener("DOMContentLoaded", () => {
 
     function startGeneration() {
@@ -452,14 +457,12 @@ document.addEventListener("DOMContentLoaded", () => {
             alert("Please enter your startup idea.");
             return;
         }
-
-        const startup = {
-            idea: idea,
-            name: "",
-            tagline: "",
-            industry: "",
-            createdAt: new Date().toISOString()
-        };
+const startup = {
+    idea,
+    name: aiResult.name,
+    tagline: aiResult.tagline,
+    industry: aiResult.industry
+};
 
         localStorage.setItem(
             "startupData",

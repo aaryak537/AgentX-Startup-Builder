@@ -33,32 +33,22 @@ app.use("/api/startup", startupRoutes);
 app.use("/api/agents", agentRoutes);
 app.use("/api/export", exportRoutes);
 
-// ===============================
-// Home Route
-// ===============================
+const FRONTEND = path.join(__dirname, "..");
+
+app.use(express.static(FRONTEND));
+
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend/index.html"));
+    res.sendFile(path.join(FRONTEND, "index.html"));
 });
 
-// ===============================
-// 404
-// ===============================
-app.use((req, res) => {
-    res.status(404).json({
-        success: false,
-        message: "Route Not Found"
-    });
-});
-
-// ===============================
-// Error Handler
-// ===============================
 app.use((err, req, res, next) => {
-    console.error(err);
+    console.error("=== SERVER ERROR ===");
+    console.error(err.stack || err);
 
     res.status(500).json({
         success: false,
-        message: "Internal Server Error"
+        message: err.message,
+        stack: process.env.NODE_ENV !== "production" ? err.stack : undefined
     });
 });
 

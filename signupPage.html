@@ -17,10 +17,11 @@
     <body>
         <!-- ================= NAVBAR ================= -->
         <nav class="navbar">
-            <div class="logo">
-                <div class="logo-circle"></div>
-                <h2>AgentX</h2>
-            </div>
+  <div class="logo-circle">
+  <div class="logo">
+  <img src="images/logo.jpeg" alt="AgentX Logo" />
+<h2>AgentX</h2>
+</div></div>
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="index.html#features">Features</a></li>
@@ -85,7 +86,7 @@
                                 placeholder="Confirm password"
                                 required>
                         </div>
-                        <button type="submit" class="btn-primary auth-btn"><a href="dashboard.html">
+                        <button type="submit" id="signupBtn" class="btn-primary auth-btn"><a href="dashboard.html">
                             Create Account</a>
                         </button>
                     </form>
@@ -93,7 +94,7 @@
                         <span>OR</span>
                     </div>
                     <button class="google-btn">
-                        <img src="google.png" alt="googleLogo"
+                        <img src="images/google.png" alt="googleLogo"
                             width="20" height="20">
                         Continue with Google
                     </button>
@@ -108,8 +109,7 @@
         </section>
         <script src="script.js"></script>
         <script src="engine.js">window.location.href ="dashboard.html";</script>
-       <script type="module" src="firebase/firebaseConfig.js"></script>
-        <script type="module" src="firebase/Authentication.js"></script>
+       <script type="module" src="firebase/Authentication.js"></script>
     
     </body>
 </html>
