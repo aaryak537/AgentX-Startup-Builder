@@ -1,6 +1,37 @@
+/* ==========================================================
+   AgentX Financial Dashboard
+   Loads Startup
+   Generates Business Report
+   Calculates Financial Projection
+========================================================== */
+
 document.addEventListener("DOMContentLoaded", () => {
 
-    loadFinancialData();
+    if (typeof AgentX === "undefined") {
+        console.error("AgentX engine not loaded.");
+        return;
+    }
+
+    const startup = AgentX.loadStartup();
+
+    if (!startup) {
+        console.error("Startup not found.");
+        return;
+    }
+
+    if (!startup.financial) {
+        startup.financial = {};
+    }
+
+    if (!startup.businessPlan) {
+        startup.businessPlan = generateBusinessPlan(startup);
+    }
+
+    AgentX.saveStartup(startup);
+
+    AgentX.paintTopbarMeta(startup);
+
+    initializeFinancial(startup);
 
     const saveBtn = document.getElementById("saveFinancial");
 
@@ -21,43 +52,45 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-// ================= LOAD DATA =================
 
-function loadFinancialData() {
+/* ==========================================================
+   Initialize
+========================================================== */
 
-    const startup = AgentX.loadStartup();
+function initializeFinancial(startup){
 
-    AgentX.paintTopbarMeta(startup);
+    const investment =
+        startup.financial.investment || 500000;
+
+    const revenue =
+        startup.financial.monthlyRevenue || 100000;
+
+    const expense =
+        startup.financial.monthlyExpense || 60000;
 
     document.getElementById("startupName").textContent =
         startup.name;
 
     document.getElementById("investment").value =
-        startup.financial?.investment || 500000;
+        investment;
 
     document.getElementById("monthlyRevenue").value =
-        Math.round((startup.financial?.revenueY1 || 1200000) / 12);
+        revenue;
 
     document.getElementById("monthlyExpense").value =
-        Math.round(
-            ((startup.financial?.revenueY1 || 1200000) * 0.60) / 12
-        );
+        expense;
 
-    // Optional cards if present
+    setText("executiveSummary",
+        startup.businessPlan.executiveSummary);
 
-    if (document.getElementById("roi")) {
+    setText("businessModel",
+        startup.businessPlan.revenueModel);
 
-        document.getElementById("roi").textContent =
-            startup.financial.roi + "%";
+    setText("targetAudience",
+        startup.businessPlan.targetAudience);
 
-    }
-
-    if (document.getElementById("startupScore")) {
-
-        document.getElementById("startupScore").textContent =
-            startup.score + "/100";
-
-    }
+    setText("vision",
+        startup.businessPlan.vision);
 
     calculateFinancials();
 
@@ -65,87 +98,164 @@ function loadFinancialData() {
 
 
 
-// ================= CALCULATE =================
+/* ==========================================================
+   Business Plan Generator
+========================================================== */
 
-function calculateFinancials() {
+function generateBusinessPlan(startup){
 
-    const investment =
-        Number(document.getElementById("investment").value);
+    return{
 
-    const revenue =
-        Number(document.getElementById("monthlyRevenue").value);
+        executiveSummary:
+        `${startup.name} is an AI-powered ${startup.category} startup focused on providing high-quality products and creating a scalable business model.`,
 
-    const expense =
-        Number(document.getElementById("monthlyExpense").value);
+        vision:
+        `Become a leading ${startup.category} company within five years.`,
 
-    const profit =
-        revenue - expense;
+        mission:
+        `Deliver excellent customer experience through innovation and quality.`,
 
-    const annualProfit =
-        profit * 12;
+        revenueModel:
+        "Direct Sales • Online Orders • Subscription • Partnerships",
 
-    const roi =
-        investment > 0
-        ? ((annualProfit / investment) * 100).toFixed(1)
-        : 0;
+        targetAudience:
+        "Students, Families, Working Professionals, Online Customers"
 
-    let breakEven = "-";
-
-    if (profit > 0) {
-
-        breakEven =
-            (investment / profit).toFixed(1) +
-            " Months";
-
-    }
-
-    document.getElementById("profit").textContent =
-        "₹" + profit.toLocaleString("en-IN");
-
-    document.getElementById("breakEven").textContent =
-        breakEven;
-
-    if (document.getElementById("annualProfit")) {
-
-        document.getElementById("annualProfit").textContent =
-            "₹" + annualProfit.toLocaleString("en-IN");
-
-    }
-
-    if (document.getElementById("roi")) {
-
-        document.getElementById("roi").textContent =
-            roi + "%";
-
-    }
+    };
 
 }
 
 
 
-// ================= SAVE =================
+/* ==========================================================
+   Financial Calculation
+========================================================== */
 
-function saveFinancialData() {
+function calculateFinancials(){
+
+    const investment =
+        Number(document.getElementById("investment").value) || 0;
+
+    const revenue =
+        Number(document.getElementById("monthlyRevenue").value) || 0;
+
+    const expense =
+        Number(document.getElementById("monthlyExpense").value) || 0;
+
+    const profit =
+        revenue-expense;
+
+    const annualRevenue =
+        revenue*12;
+
+    const annualExpense =
+        expense*12;
+
+    const annualProfit =
+        profit*12;
+
+    const roi =
+        investment>0
+        ?((annualProfit/investment)*100).toFixed(1)
+        :0;
+
+    const margin =
+        revenue>0
+        ?((profit/revenue)*100).toFixed(1)
+        :0;
+
+    const breakEven =
+        profit>0
+        ?(investment/profit).toFixed(1)+" Months"
+        :"Not Achievable";
+
+    setMoney("profit",profit);
+    setMoney("annualRevenue",annualRevenue);
+    setMoney("annualExpense",annualExpense);
+    setMoney("annualProfit",annualProfit);
+
+    setText("roi",roi+"%");
+    setText("profitMargin",margin+"%");
+    setText("breakEven",breakEven);
+
+}
+
+
+
+/* ==========================================================
+   Save
+========================================================== */
+
+function saveFinancialData(){
 
     const startup =
         AgentX.loadStartup();
 
+    if(!startup.financial){
+        startup.financial={};
+    }
+
     startup.financial.investment =
         Number(document.getElementById("investment").value);
 
-    startup.financial.revenueY1 =
-        Number(document.getElementById("monthlyRevenue").value) * 12;
+    startup.financial.monthlyRevenue =
+        Number(document.getElementById("monthlyRevenue").value);
 
     startup.financial.monthlyExpense =
         Number(document.getElementById("monthlyExpense").value);
 
-    localStorage.setItem(
-        "agentx_startup",
-        JSON.stringify(startup)
-    );
+    startup.financial.annualRevenue =
+        startup.financial.monthlyRevenue*12;
+
+    startup.financial.annualExpense =
+        startup.financial.monthlyExpense*12;
+
+    startup.financial.annualProfit =
+        startup.financial.annualRevenue-
+        startup.financial.annualExpense;
+
+    startup.financial.roi =
+        startup.financial.investment>0
+        ?(
+            (startup.financial.annualProfit/
+            startup.financial.investment)*100
+        ).toFixed(1)
+        :0;
+
+    AgentX.saveStartup(startup);
 
     calculateFinancials();
 
-    alert("✅ Financial data saved.");
+    AgentX.toast(
+        "Financial report saved successfully.",
+        "success"
+    );
+
+}
+
+
+
+/* ==========================================================
+   Helpers
+========================================================== */
+
+function setText(id,value){
+
+    const el=document.getElementById(id);
+
+    if(el){
+        el.textContent=value;
+    }
+
+}
+
+function setMoney(id,value){
+
+    const el=document.getElementById(id);
+
+    if(el){
+        el.textContent=
+        "₹"+Number(value).toLocaleString("en-IN");
+    }
 
 }

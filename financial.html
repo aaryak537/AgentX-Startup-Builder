@@ -126,19 +126,72 @@
 
 <script>
 (function () {
-    const s = AgentX.loadStartup();
-    AgentX.paintTopbarMeta(s);
+const s = AgentX.loadStartup();
 
-    document.getElementById("docExec").textContent = s.businessPlan.executiveSummary;
-    document.getElementById("docMarket").textContent = s.businessPlan.marketOpportunity;
-    document.getElementById("growthLabel").textContent = `${s.marketLabel} — ${s.businessPlan.marketGrowthText}`;
-    document.getElementById("docProducts").innerHTML = s.businessPlan.productList.map(p => `<li>${p}</li>`).join("");
+if (!s) {
+    console.error("Startup not found.");
+    return;
+}
 
-    document.getElementById("statInvestment").textContent = AgentX.fmtMoney(s.financial.investment);
-    document.getElementById("statRevenue").textContent = AgentX.fmtMoney(s.financial.revenueY1);
-    document.getElementById("statProfit").textContent = AgentX.fmtMoney(s.financial.netProfitY1);
-    document.getElementById("statRoi").textContent = s.financial.roi + "%";
-    document.getElementById("profitMarginLabel").textContent = Math.round((s.financial.netProfitY1 / s.financial.revenueY1) * 100) + "% margin";
+if (!s.businessPlan) {
+    s.businessPlan = {};
+}
+
+if (!s.financial) {
+    s.financial = {};
+}
+
+AgentX.paintTopbarMeta(s);
+
+  document.getElementById("docExec").textContent =
+    s.businessPlan.executiveSummary ||
+    "Executive summary will be generated.";
+
+document.getElementById("docMarket").textContent =
+    s.businessPlan.marketOpportunity ||
+    "Market opportunity analysis is being prepared.";
+
+document.getElementById("growthLabel").textContent =
+    `${s.marketLabel || "Market"} — ${
+        s.businessPlan.marketGrowthText || "Growing industry"
+    }`;
+
+const products =
+    s.businessPlan.productList || [];
+
+document.getElementById("docProducts").innerHTML =
+products.map(p=>`<li>${p}</li>`).join("");
+
+const investment =
+    s.financial.investment || 500000;
+
+const revenue =
+    s.financial.revenueY1 || 1200000;
+
+const profit =
+    s.financial.netProfitY1 || 450000;
+
+const roi =
+    s.financial.roi || 0;
+
+document.getElementById("statInvestment").textContent =
+    AgentX.fmtMoney(investment);
+
+document.getElementById("statRevenue").textContent =
+    AgentX.fmtMoney(revenue);
+
+document.getElementById("statProfit").textContent =
+    AgentX.fmtMoney(profit);
+
+document.getElementById("statRoi").textContent =
+    roi + "%";
+    const margin =
+revenue > 0
+? Math.round((profit / revenue) * 100)
+: 0;
+
+document.getElementById("profitMarginLabel").textContent =
+margin + "% margin";
 
     /* ---------- tiny chart helpers (pure SVG, no dependencies) ---------- */
     const NS = "http://www.w3.org/2000/svg";
@@ -237,7 +290,45 @@
                 <strong>${pct}%</strong>
             </div>`).join("");
     }
+if(!s.financial.revenueForecast){
 
+    s.financial.revenueForecast = [
+
+        revenue * 0.20,
+        revenue * 0.25,
+        revenue * 0.27,
+        revenue * 0.28
+
+    ];
+
+}
+
+if(!s.financial.profitForecast){
+
+    s.financial.profitForecast = [
+
+        profit * 0.18,
+        profit * 0.25,
+        profit * 0.27,
+        profit * 0.30
+
+    ];
+
+}
+
+if(!s.financial.costBreakdown){
+
+    s.financial.costBreakdown = {
+
+        Operations:40,
+        Marketing:20,
+        Salaries:20,
+        Technology:10,
+        Miscellaneous:10
+
+    };
+
+}
     const quarters = ["Q1", "Q2", "Q3", "Q4"];
     barChart("overviewRevenueChart", s.financial.revenueForecast, quarters, "#4f8cff", "#8b5cf6");
     lineChart("revenueChart", [
@@ -247,8 +338,8 @@
     lineChart("profitChart", [{ values: s.financial.profitForecast, color: "#34d399" }], quarters);
     donutChart("costDonut", "costLegend", s.financial.costBreakdown, ["#4f8cff", "#8b5cf6", "#fbbf24", "#34d399", "#f87171"]);
 
-    // fake year-over-year market growth bars for the doc viewer
-    const cagrNum = parseFloat(s.cagr) / 100;
+const cagrNum =
+parseFloat(s.cagr || "12") / 100;
     const years = ["2024", "2025", "2026", "2027", "2028"];
     let base = s.marketSize / Math.pow(1 + cagrNum, 4);
     const growthVals = years.map((_, i) => Math.round(base * Math.pow(1 + cagrNum, i)));
@@ -270,9 +361,11 @@
 
     const startup = AgentX.loadStartup();
 
-    startup.finance = finance;
-
+    startup.financial = finance;
+   
     AgentX.saveStartup(startup);
+     AgentX.saveStartup(s);
+
 
 }
 })();
