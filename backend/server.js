@@ -1,7 +1,5 @@
 require("dotenv").config();
 
-const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
-
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
@@ -40,7 +38,14 @@ app.use(express.static(FRONTEND));
 app.get("/", (req, res) => {
     res.sendFile(path.join(FRONTEND, "index.html"));
 });
-
+app.get("/api/health", (req, res) => {
+    res.json({
+        success: true,
+        status: "running",
+        service: "AgentX Backend",
+        time: new Date()
+    });
+});
 app.use((err, req, res, next) => {
     console.error("=== SERVER ERROR ===");
     console.error(err.stack || err);

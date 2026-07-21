@@ -143,7 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
         startBtn.onclick = () => {
 
             window.location.href =
-            "dashboard.html";
+            "overview.html";
 
         };
 
@@ -173,7 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
                 window.location.href =
-                "dashboard.html";
+                "overview.html";
 
             }
         );
@@ -454,7 +454,7 @@ function startGeneration() {
         industry: aiResult.industry
     };
 
-    window.location.href = "dashboard.html";
+    window.location.href = "overview.html";
 }
 
 

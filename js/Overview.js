@@ -136,6 +136,63 @@ function loadOverview(startup) {
             )
         `;
     }
+    function loadBranding(startup) {
+
+    const p = startup.palette || [
+        "#2563EB",
+        "#10B981",
+        "#F8FAFC",
+        "#111827"
+    ];
+
+
+    // ================= AI LOGO =================
+
+    const prompt = encodeURIComponent(
+
+        `Modern premium vector logo for ${startup.name},
+        minimal,
+        flat design,
+        startup branding,
+        ${startup.category},
+        white background`
+
+    );
+
+
+    const logoBlock = document.getElementById("logoBlock");
+
+    if (logoBlock) {
+
+        logoBlock.innerHTML = `
+
+        <img
+
+        src="https://image.pollinations.ai/prompt/${prompt}"
+
+        style="
+        width:220px;
+        height:220px;
+        object-fit:contain;
+        background:white;
+        border-radius:18px;
+        padding:20px;
+        ">
+
+        <div
+        style="
+        margin-top:12px;
+        font-weight:700;
+        font-size:18px;
+        ">
+
+        ${startup.name}
+
+        </div>
+
+        `;
+
+    }}
 
     // ==========================================
     // SCORE RINGS

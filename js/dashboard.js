@@ -1,12 +1,3 @@
-// ================= AGENTX DASHBOARD =================
-
-
-// Load engine
-// Make sure dashboard.html has:
-// <script src="engine.js"></script>
-// before this file
-
-
 const agents = [
     "market",
     "brandingAgent",

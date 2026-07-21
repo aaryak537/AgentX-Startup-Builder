@@ -10,8 +10,9 @@ const roadmapAgent = require("./roadmap");
 const launchAgent = require("./launchAgent");
 const legalAgent = require("./legalAgent");
 const riskAgent = require("./riskAgent");
+
 /**
- * Executes an agent safely without crashing the entire workflow.
+ * Executes an agent safely without crashing the workflow.
  */
 async function runAgent(name, agentFunction, startupIdea) {
     try {
@@ -22,10 +23,8 @@ async function runAgent(name, agentFunction, startupIdea) {
             agent: name,
             data: result
         };
-
     } catch (error) {
-
-        console.error(`${name} failed:`, error.message);
+        console.error(`❌ ${name} failed:`, error.message);
 
         return {
             success: false,
@@ -45,85 +44,79 @@ async function orchestrator(startupIdea) {
     console.log("Idea:", startupIdea);
     console.log("=====================================");
 
-    const [
-        branding,
-        finance,
-        businessPlan,
-        website,
-        socialMedia,
-        competitor,
-        pitchDeck,
-        swot,
-        roadmap,
-        launch,
-        legal,
-        risk
-    ] = await Promise.all([
+    const startTime = Date.now();
 
-        runAgent("Branding Agent", brandingAgent, startupIdea),
+    // ===============================
+    // Agent Registry
+    // ===============================
 
-        runAgent("Finance Agent", financeAgent, startupIdea),
+    const agents = [
+        { name: "Branding Agent", handler: brandingAgent },
+        { name: "Finance Agent", handler: financeAgent },
+        { name: "Business Plan Agent", handler: businessAgent },
+        { name: "Website Agent", handler: websiteAgent },
+        { name: "Social Media Agent", handler: socialAgent },
+        { name: "Competitor Agent", handler: competitorAgent },
+        { name: "Pitch Deck Agent", handler: pitchAgent },
+        { name: "SWOT Agent", handler: swotAgent },
+        { name: "Roadmap Agent", handler: roadmapAgent },
+        { name: "Launch Agent", handler: launchAgent },
+        { name: "Legal Agent", handler: legalAgent },
+        { name: "Risk Agent", handler: riskAgent }
+    ];
 
-        runAgent("Business Plan Agent", businessAgent, startupIdea),
+    // ===============================
+    // Execute All Agents in Parallel
+    // ===============================
+agents.forEach(agent => {
+    console.log(agent.name, typeof agent.handler);
+});
+    const results = await Promise.all(
+        agents.map(agent =>
+            runAgent(
+                agent.name,
+                agent.handler,
+                startupIdea
+            )
+        )
+    );
 
-        runAgent("Website Agent", websiteAgent, startupIdea),
+    // ===============================
+    // Convert Array -> Object
+    // ===============================
 
-        runAgent("Social Media Agent", socialAgent, startupIdea),
-runAgent("Competitor Agent", competitorAgent, startupIdea),
+    const output = {};
 
-        runAgent("Pitch Deck Agent", pitchAgent, startupIdea),
+    results.forEach(result => {
 
-        runAgent("SWOT Agent", swotAgent, startupIdea),
-runAgent("Roadmap Agent", roadmapAgent, startupIdea),
+        let key = result.agent
+            .replace(/\s+/g, "")
+            .replace("Agent", "");
 
-        runAgent("Launch Agent", launchAgent, startupIdea),
+        key = key.charAt(0).toLowerCase() + key.slice(1);
 
-        runAgent("Legal Agent", legalAgent, startupIdea),
+        output[key] = result;
+    });
 
-        runAgent("Risk Agent", riskAgent, startupIdea)
+    const executionTime = Date.now() - startTime;
 
-    ]);
-
-    console.log("✅ All agents completed.");
+    console.log("=====================================");
+    console.log("✅ All agents completed");
+    console.log(`⚡ Execution Time: ${executionTime} ms`);
+    console.log("=====================================");
 
     return {
-
-        startupIdea,
-
-        generatedAt: new Date().toISOString(),
-
         success: true,
-
-        results: {
-
-            branding,
-
-            finance,
-
-            businessPlan,
-
-            website,
-
-            socialMedia,
-
-            competitor,
-
-            pitchDeck,
-
-            swot,
-
-            roadmap,
-
-            launch,
-
-            legal,
-
-            risk
-
-        }
-
+        startupIdea,
+        generatedAt: new Date().toISOString(),
+        executionTime,
+        totalAgents: agents.length,
+        successfulAgents: results.filter(r => r.success).length,
+        failedAgents: results.filter(r => !r.success).length,
+        results: output
     };
-
 }
 
-const startupResult = await orchestrator(prompt);
+module.exports = {
+    generateStartup: orchestrator
+};

@@ -11,6 +11,7 @@
 
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="workspace.css">
+<link rel="stylesheet" href="animation.css">
 </head>
 <body class="workspace-body">
 
@@ -73,10 +74,27 @@
         <div class="overview-grid" style="margin-bottom:16px">
             <div class="panel">
                 <div class="panel-head"><h3>AI-generated logo</h3></div>
-                <div class="logo-plate" id="logoPlate">
-                    <div id="logoInitials" style="font-size:1.8rem">XX</div>
-                    <div id="logoName" style="font-size:.8rem;font-weight:600;opacity:.85">Name</div>
-                </div>
+<div class="logo-plate" id="logoPlate">
+
+    <img
+        id="overviewLogo"
+        src=""
+        alt="Startup Logo"
+        style="
+            width:180px;
+            height:180px;
+            object-fit:contain;
+            display:none;
+            border-radius:18px;
+        "
+    >
+
+    <div id="logoFallback">
+        <div id="logoInitials" style="font-size:2rem;font-weight:800">XX</div>
+        <div id="logoName" style="font-size:.8rem;font-weight:600">Startup</div>
+    </div>
+
+</div>
             </div>
             <div class="panel">
                 <div class="panel-head"><h3>Business summary</h3></div>
@@ -126,6 +144,5 @@
 <script src="js/startupID.js"></script>
 <script type="module" src="js/dashboard.js"></script>
 <script type="module" src="js/Overview.js"></script>
-
 </body>
 </html>

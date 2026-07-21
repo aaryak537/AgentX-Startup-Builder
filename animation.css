@@ -1,0 +1,622 @@
+/* ==========================================================
+   AgentX Animation Library
+   Non-destructive UI Enhancements
+   Version 1.0
+==========================================================*/
+
+/* -----------------------------
+   VARIABLES
+------------------------------*/
+
+:root{
+    --transition-fast:.25s ease;
+    --transition:.35s ease;
+    --transition-slow:.6s ease;
+}
+
+/* -----------------------------
+   GLOBAL SMOOTHNESS
+------------------------------*/
+
+*{
+    transition:
+        background-color var(--transition),
+        color var(--transition),
+        border-color var(--transition),
+        box-shadow var(--transition),
+        transform var(--transition);
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    animation:pageFade .8s ease;
+}
+
+@keyframes pageFade{
+    from{
+        opacity:0;
+    }
+    to{
+        opacity:1;
+    }
+}
+
+/* -----------------------------
+   SCROLL APPEAR
+------------------------------*/
+
+.fade-up{
+    animation:fadeUp .8s ease both;
+}
+
+.fade-left{
+    animation:fadeLeft .8s ease both;
+}
+
+.fade-right{
+    animation:fadeRight .8s ease both;
+}
+
+.zoom-in{
+    animation:zoomIn .7s ease both;
+}
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(40px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes fadeLeft{
+    from{
+        opacity:0;
+        transform:translateX(-40px);
+    }
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+}
+
+@keyframes fadeRight{
+    from{
+        opacity:0;
+        transform:translateX(40px);
+    }
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+}
+
+@keyframes zoomIn{
+    from{
+        opacity:0;
+        transform:scale(.92);
+    }
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+/* -----------------------------
+   BUTTONS
+------------------------------*/
+
+button,
+.btn,
+input[type="submit"]{
+
+    position:relative;
+    overflow:hidden;
+
+    cursor:pointer;
+
+    transform:translateZ(0);
+}
+
+button:hover,
+.btn:hover,
+input[type="submit"]:hover{
+
+    transform:
+        translateY(-3px)
+        scale(1.02);
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.18);
+}
+
+button:active,
+.btn:active{
+
+    transform:scale(.97);
+}
+
+/* Ripple */
+
+button::after,
+.btn::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:18px;
+    height:18px;
+
+    background:white;
+
+    opacity:0;
+
+    border-radius:50%;
+
+    transform:scale(1);
+
+    transition:.6s;
+}
+
+button:active::after,
+.btn:active::after{
+
+    opacity:.25;
+
+    transform:scale(15);
+}
+
+/* -----------------------------
+   CARD EFFECTS
+------------------------------*/
+
+.card,
+.agent-card,
+.feature-card,
+.dashboard-card,
+.panel{
+
+    transform-style:preserve-3d;
+
+    will-change:transform;
+}
+
+.card:hover,
+.agent-card:hover,
+.feature-card:hover,
+.dashboard-card:hover,
+.panel:hover{
+
+    transform:
+
+        translateY(-8px)
+
+        rotateX(2deg)
+
+        rotateY(-2deg);
+
+    box-shadow:
+
+        0 18px 40px rgba(0,0,0,.18);
+
+}
+
+/* -----------------------------
+   GLASS SHINE
+------------------------------*/
+
+.card::before,
+.feature-card::before,
+.agent-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+        linear-gradient(
+            120deg,
+            transparent,
+            rgba(255,255,255,.18),
+            transparent
+        );
+
+    transform:translateX(-140%);
+
+    pointer-events:none;
+}
+
+.card:hover::before,
+.feature-card:hover::before,
+.agent-card:hover::before{
+
+    animation:shine 1s linear;
+}
+
+@keyframes shine{
+
+    to{
+        transform:translateX(150%);
+    }
+
+}
+
+/* -----------------------------
+   LINKS
+------------------------------*/
+
+a{
+
+    position:relative;
+
+    text-decoration:none;
+}
+
+a::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    bottom:-3px;
+
+    width:0;
+
+    height:2px;
+
+    background:currentColor;
+
+    transition:.35s;
+}
+
+a:hover::after{
+
+    width:100%;
+}
+
+/* -----------------------------
+   INPUTS
+------------------------------*/
+
+input,
+textarea,
+select{
+
+    transition:.35s;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+
+    transform:scale(1.01);
+
+    box-shadow:
+        0 0 0 4px rgba(88,101,242,.15);
+}
+
+/* -----------------------------
+   LOGO
+------------------------------*/
+
+.logo{
+
+    transition:.5s;
+}
+
+.logo:hover{
+
+    transform:
+        rotate(-4deg)
+        scale(1.08);
+}
+
+/* -----------------------------
+   ICONS
+------------------------------*/
+
+i,
+svg{
+
+    transition:.3s;
+}
+
+button:hover i,
+.card:hover i,
+.feature-card:hover i{
+
+    transform:scale(1.15);
+}
+
+/* -----------------------------
+   FLOATING
+------------------------------*/
+
+.float{
+
+    animation:floating 4s ease-in-out infinite;
+}
+
+@keyframes floating{
+
+    0%{
+
+        transform:translateY(0);
+
+    }
+
+    50%{
+
+        transform:translateY(-10px);
+
+    }
+
+    100%{
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* -----------------------------
+   PULSE
+------------------------------*/
+
+.pulse{
+
+    animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+
+    0%{
+
+        box-shadow:0 0 0 0 rgba(99,102,241,.4);
+
+    }
+
+    70%{
+
+        box-shadow:0 0 0 16px rgba(99,102,241,0);
+
+    }
+
+    100%{
+
+        box-shadow:0 0 0 0 rgba(99,102,241,0);
+
+    }
+
+}
+
+/* -----------------------------
+   BADGES
+------------------------------*/
+
+.badge{
+
+    animation:badgePop .6s ease;
+}
+
+@keyframes badgePop{
+
+    0%{
+
+        transform:scale(.5);
+
+        opacity:0;
+
+    }
+
+    70%{
+
+        transform:scale(1.1);
+
+    }
+
+    100%{
+
+        transform:scale(1);
+
+        opacity:1;
+
+    }
+
+}
+
+/* -----------------------------
+   LOADING
+------------------------------*/
+
+.loading{
+
+    animation:loading 1s linear infinite;
+}
+
+@keyframes loading{
+
+    from{
+
+        transform:rotate(0);
+
+    }
+
+    to{
+
+        transform:rotate(360deg);
+
+    }
+
+}
+
+/* -----------------------------
+   GLOW
+------------------------------*/
+
+.glow:hover{
+
+    box-shadow:
+
+        0 0 25px rgba(0,170,255,.45),
+
+        0 0 50px rgba(0,170,255,.18);
+
+}
+
+/* -----------------------------
+   TABLES
+------------------------------*/
+
+table tr{
+
+    transition:.25s;
+}
+
+table tbody tr:hover{
+
+    transform:scale(1.01);
+
+    background:rgba(255,255,255,.04);
+
+}
+
+/* -----------------------------
+   NAVIGATION
+------------------------------*/
+
+nav a:hover{
+
+    transform:translateY(-2px);
+}
+
+/* -----------------------------
+   HERO TITLE
+------------------------------*/
+
+.hero-title{
+
+    animation:heroText .8s ease;
+}
+
+@keyframes heroText{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(35px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:none;
+
+    }
+
+}
+
+/* -----------------------------
+   GRADIENT BORDER
+------------------------------*/
+
+.gradient-border{
+
+    position:relative;
+}
+
+.gradient-border::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:-2px;
+
+    border-radius:inherit;
+
+    background:
+
+    linear-gradient(
+        90deg,
+        #6c63ff,
+        #00d4ff,
+        #6c63ff
+    );
+
+    background-size:300%;
+
+    z-index:-1;
+
+    animation:borderMove 6s linear infinite;
+}
+
+@keyframes borderMove{
+
+    from{
+
+        background-position:0%;
+
+    }
+
+    to{
+
+        background-position:300%;
+
+    }
+
+}
+
+/* -----------------------------
+   SCROLLBAR
+------------------------------*/
+
+::-webkit-scrollbar{
+
+    width:10px;
+}
+
+::-webkit-scrollbar-thumb{
+
+    border-radius:20px;
+
+    background:linear-gradient(
+        180deg,
+        #6c63ff,
+        #00d4ff
+    );
+}
+
+::-webkit-scrollbar-track{
+
+    background:transparent;
+}
+
+/* -----------------------------
+   REDUCED MOTION
+------------------------------*/
+
+@media(prefers-reduced-motion:reduce){
+
+*{
+
+animation:none!important;
+
+transition:none!important;
+
+}
+
+}

@@ -14,7 +14,7 @@ loginForm.addEventListener("submit", async (e) => {
         await signInWithEmailAndPassword(auth, email, password);
 
         // Connect Login → Dashboard
-        window.location.href = "dashboard.html";
+        window.location.href = "overview.html";
 
     } catch (error) {
         alert(error.message);

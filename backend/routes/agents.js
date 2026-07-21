@@ -6,7 +6,13 @@ const orchestrator = require("../agents/orchestrator");
 // Run all AI agents
 router.post("/generate", async (req, res) => {
     try {
-        const { startupIdea } = req.body;
+const {
+    startupIdea,
+    category,
+    budget,
+    audience,
+    location
+} = req.body;
 
         if (!startupIdea) {
             return res.status(400).json({
@@ -14,13 +20,20 @@ router.post("/generate", async (req, res) => {
                 message: "Startup idea is required."
             });
         }
-
-        const result = await orchestrator.generateStartup(startupIdea);
-
-        res.json({
-            success: true,
-            data: result
-        });
+const result = await orchestrator.generateStartup({
+    startupIdea,
+    category,
+    budget,
+    audience,
+    location
+});
+res.json({
+    success: true,
+    generatedAt: new Date(),
+    executionTime: result.executionTime,
+    agentsUsed: result.agentsUsed,
+    data: result.data
+});
 
     } catch (error) {
         console.error("Agent Error:", error);

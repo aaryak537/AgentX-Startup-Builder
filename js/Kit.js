@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         alert("No startup found.");
 
-        window.location.href = "dashboard.html";
+        window.location.href = "overview.html";
 
         return;
 

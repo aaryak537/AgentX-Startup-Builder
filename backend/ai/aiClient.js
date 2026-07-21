@@ -59,6 +59,4 @@ async function askAI(prompt, model = MODELS.DEFAULT_MODEL) {
     }
 }
 
-module.exports = {
-    askAI
-};
+module.exports = askAI;
