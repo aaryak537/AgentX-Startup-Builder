@@ -1,14 +1,15 @@
 require("dotenv").config();
-
+const codeRoutes = require("./routes/code");
+const retryAgent = require("./agents/retryAgent");
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
+const chatbotRoutes = require("./routes/chatbotRoutes");
 
 const app = express();
 
-// ===============================
-// Middleware
-// ===============================
+app.use("/api/code", codeRoutes);
+app.use("/api", chatbotRoutes);
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
