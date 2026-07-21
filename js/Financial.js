@@ -1,81 +1,151 @@
 document.addEventListener("DOMContentLoaded", () => {
+
     loadFinancialData();
 
     const saveBtn = document.getElementById("saveFinancial");
+
     if (saveBtn) {
         saveBtn.addEventListener("click", saveFinancialData);
     }
+
+    ["investment", "monthlyRevenue", "monthlyExpense"].forEach(id => {
+
+        const input = document.getElementById(id);
+
+        if (input) {
+            input.addEventListener("input", calculateFinancials);
+        }
+
+    });
+
 });
 
-// Load startup information
+
+// ================= LOAD DATA =================
+
 function loadFinancialData() {
-    const startup = JSON.parse(localStorage.getItem("startupData")) || {};
+
+    const startup = AgentX.loadStartup();
+
+    AgentX.paintTopbarMeta(startup);
 
     document.getElementById("startupName").textContent =
-        startup.name || "My Startup";
+        startup.name;
 
     document.getElementById("investment").value =
-        startup.investment || 500000;
+        startup.financial?.investment || 500000;
 
     document.getElementById("monthlyRevenue").value =
-        startup.monthlyRevenue || 100000;
+        Math.round((startup.financial?.revenueY1 || 1200000) / 12);
 
     document.getElementById("monthlyExpense").value =
-        startup.monthlyExpense || 60000;
+        Math.round(
+            ((startup.financial?.revenueY1 || 1200000) * 0.60) / 12
+        );
+
+    // Optional cards if present
+
+    if (document.getElementById("roi")) {
+
+        document.getElementById("roi").textContent =
+            startup.financial.roi + "%";
+
+    }
+
+    if (document.getElementById("startupScore")) {
+
+        document.getElementById("startupScore").textContent =
+            startup.score + "/100";
+
+    }
 
     calculateFinancials();
+
 }
 
-// Calculate profit and break-even
+
+
+// ================= CALCULATE =================
+
 function calculateFinancials() {
 
-    const investment = Number(document.getElementById("investment").value);
-    const revenue = Number(document.getElementById("monthlyRevenue").value);
-    const expense = Number(document.getElementById("monthlyExpense").value);
+    const investment =
+        Number(document.getElementById("investment").value);
 
-    const profit = revenue - expense;
+    const revenue =
+        Number(document.getElementById("monthlyRevenue").value);
+
+    const expense =
+        Number(document.getElementById("monthlyExpense").value);
+
+    const profit =
+        revenue - expense;
+
+    const annualProfit =
+        profit * 12;
+
+    const roi =
+        investment > 0
+        ? ((annualProfit / investment) * 100).toFixed(1)
+        : 0;
 
     let breakEven = "-";
 
     if (profit > 0) {
-        breakEven = (investment / profit).toFixed(1) + " Months";
+
+        breakEven =
+            (investment / profit).toFixed(1) +
+            " Months";
+
     }
 
     document.getElementById("profit").textContent =
-        "₹" + profit.toLocaleString();
+        "₹" + profit.toLocaleString("en-IN");
 
     document.getElementById("breakEven").textContent =
         breakEven;
+
+    if (document.getElementById("annualProfit")) {
+
+        document.getElementById("annualProfit").textContent =
+            "₹" + annualProfit.toLocaleString("en-IN");
+
+    }
+
+    if (document.getElementById("roi")) {
+
+        document.getElementById("roi").textContent =
+            roi + "%";
+
+    }
+
 }
 
-// Save Data
+
+
+// ================= SAVE =================
+
 function saveFinancialData() {
 
-    const startup = JSON.parse(localStorage.getItem("startupData")) || {};
+    const startup =
+        AgentX.loadStartup();
 
-    startup.investment =
+    startup.financial.investment =
         Number(document.getElementById("investment").value);
 
-    startup.monthlyRevenue =
-        Number(document.getElementById("monthlyRevenue").value);
+    startup.financial.revenueY1 =
+        Number(document.getElementById("monthlyRevenue").value) * 12;
 
-    startup.monthlyExpense =
+    startup.financial.monthlyExpense =
         Number(document.getElementById("monthlyExpense").value);
 
-    localStorage.setItem("startupData", JSON.stringify(startup));
+    localStorage.setItem(
+        "agentx_startup",
+        JSON.stringify(startup)
+    );
 
     calculateFinancials();
 
-    alert("Financial data saved successfully!");
+    alert("✅ Financial data saved.");
+
 }
-
-// Auto calculate while typing
-["investment", "monthlyRevenue", "monthlyExpense"].forEach(id => {
-
-    const element = document.getElementById(id);
-
-    if (element) {
-        element.addEventListener("input", calculateFinancials);
-    }
-
-});

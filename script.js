@@ -172,12 +172,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 || "I want to start a bakery";
 
 
-                localStorage.setItem(
-                    "startupIdea",
-                    idea
-                );
-
-
                 window.location.href =
                 "dashboard.html";
 
@@ -185,11 +179,6 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
     }
-
-
-
-
-
     /* =========================================
        AI AGENT WORKFLOW ANIMATION
     ========================================= */
@@ -447,32 +436,26 @@ if (btn) {
 }
 document.addEventListener("DOMContentLoaded", () => {
 
-    function startGeneration() {
+function startGeneration() {
 
-        const ideaInput = document.getElementById("ideaInput");
+    const ideaInput = document.getElementById("ideaInput");
 
-        const idea = ideaInput?.value.trim();
+    const idea = ideaInput?.value.trim();
 
-        if (!idea) {
-            alert("Please enter your startup idea.");
-            return;
-        }
-const startup = {
-    idea,
-    name: aiResult.name,
-    tagline: aiResult.tagline,
-    industry: aiResult.industry
-};
-
-        localStorage.setItem(
-            "startupData",
-            JSON.stringify(startup)
-        );
-
-        console.log("Saved:", startup);
-
-        window.location.href = "dashboard.html";
+    if (!idea) {
+        alert("Please enter your startup idea.");
+        return;
     }
+
+    const startup = {
+        idea,
+        name: aiResult.name,
+        tagline: aiResult.tagline,
+        industry: aiResult.industry
+    };
+
+    window.location.href = "dashboard.html";
+}
 
 
     const generateBtn =
@@ -480,9 +463,9 @@ const startup = {
 
     if(generateBtn){
         generateBtn.addEventListener(
-            "click",
-            startGeneration
-        );
+    "click",
+    startGeneration
+);
     }
 
 

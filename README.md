@@ -203,10 +203,6 @@ Interactive Dashboard
 * CSS3
 * JavaScript (ES6)
 
-## Backend
-
-* Python
-
 ## AI
 
 * OpenRouter API
@@ -216,9 +212,6 @@ Interactive Dashboard
 
 * SQLite
 
-## Deployment
-
-* GitHub Pages (Frontend)
 
 ---
 

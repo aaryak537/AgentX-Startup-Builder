@@ -1,31 +1,13 @@
-import { auth } from "../firebase/firebaseconfig.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
+// ================= AGENTX DASHBOARD =================
 
-onAuthStateChanged(auth, (user) => {
-    console.log("User:", user);
 
-    if (user) {
-        console.log("Email:", user.email);
-    } else {
-        console.log("No user");
-    }
-});
+// Load engine
+// Make sure dashboard.html has:
+// <script src="engine.js"></script>
+// before this file
 
-onAuthStateChanged(auth, (user) => {
-    console.log("Current user:", user);
-
-    if (!user) {
-        console.log("No user logged in.");
-        // window.location.href = "loginPage.html";
-        return;
-    }
-
-    console.log("Logged in:", user.email);
-});
-// ================= AI AGENTS =================
 
 const agents = [
-
     "market",
     "brandingAgent",
     "businessAgent",
@@ -39,271 +21,315 @@ const agents = [
     "legalAgent",
     "pitchAgent",
     "launchAgent"
-
 ];
 
 
-// ================= RUN SINGLE AGENT =================
+// ================= RUN AGENT =================
 
-async function runAgent(agent, prompt) {
+function runAgent(agent, startup){
 
 
     const status =
         document.getElementById(`${agent}-status`);
+
 
     const result =
         document.getElementById(`${agent}-result`);
 
 
 
-    if (status) {
-
-        status.innerHTML = "🟡 Thinking...";
-        status.style.color = "#ffaa00";
-
-    }
-
-
-    if (result) {
-
-        result.innerHTML = "";
-
+    if(status){
+        status.innerHTML="🟡 Processing...";
     }
 
 
 
-    try {
+    setTimeout(()=>{
 
 
-        const response = await fetch(
-            "http://localhost:3000/generate-agent",
-            {
-
-                method: "POST",
-
-                headers: {
-
-                    "Content-Type": "application/json"
-
-                },
+        let output="";
 
 
-                body: JSON.stringify({
+        switch(agent){
 
-                    agent: agent,
-                    prompt: prompt
 
-                })
+            case "market":
 
-            }
-        );
+                output =
+                startup.businessPlan.marketOpportunity;
+
+                break;
 
 
 
-        if (!response.ok) {
+            case "brandingAgent":
 
-            throw new Error("Backend Server Error");
+                output =
+                `
+                Logo:
+                ${startup.name}
+
+                Colors:
+                ${startup.palette.join(", ")}
+
+                Tagline:
+                ${startup.tagline}
+                `;
+
+                break;
+
+
+
+            case "financeAgent":
+
+                output =
+                `
+                Investment:
+                ${AgentX.fmtMoney(
+                    startup.financial.investment
+                )}
+
+                Revenue:
+                ${AgentX.fmtMoney(
+                    startup.financial.revenueY1
+                )}
+
+                ROI:
+                ${startup.financial.roi}%
+                `;
+
+                break;
+
+
+
+            case "competitor":
+
+                output =
+                startup.competitors
+                .map(c=>c.name)
+                .join(", ");
+
+                break;
+
+
+
+            case "socialAgent":
+
+                output =
+                `
+                ${startup.name}
+                social campaigns created.
+                
+                Instagram:
+                Fresh launch campaign
+                
+                Festival offers
+                
+                Influencer marketing
+                `;
+
+                break;
+
+
+
+            case "swotAgent":
+
+                output =
+                `
+                Strength:
+                Strong branding
+                
+                Weakness:
+                Initial competition
+                
+                Opportunity:
+                Online expansion
+                
+                Threat:
+                Market competition
+                `;
+
+                break;
+
+
+
+            default:
+
+                output =
+                `${agent} completed successfully`;
 
         }
-
-
-
-        const data = await response.json();
-
-
-
-        if (status) {
-
-            status.innerHTML = "✅ Completed";
-            status.style.color = "#00ff88";
-
-        }
-
-
-
-        if (result) {
-
-            result.innerHTML =
-                data.result || "Completed";
-
-        }
-
-
-
-    }
-
-    catch(error){
-
-
-        console.error(
-            "Agent Error:",
-            error
-        );
 
 
 
         if(status){
 
-            status.innerHTML = "❌ Failed";
-            status.style.color = "red";
+            status.innerHTML="✅ Completed";
 
         }
-
 
 
         if(result){
 
-            result.innerHTML =
-                error.message;
+            result.innerHTML=output;
 
         }
 
 
-    }
+
+    },500);
+
 
 }
 
 
 
-// ================= GENERATE ALL AGENTS =================
+
+// ================= GENERATE ALL =================
 
 
-async function generateAll(){
+function generateAll(){
 
 
-    const promptBox =
-        document.getElementById("startupPrompt");
+const promptBox =
+document.getElementById("startupPrompt");
 
 
-    const button =
-        document.getElementById("generateBtn");
+if(!promptBox){
 
+console.error(
+"startupPrompt missing"
+);
 
-    const progress =
-        document.getElementById("progressBar");
+return;
 
-
-
-    if(!promptBox){
-
-        alert("Startup prompt box missing");
-        return;
-
-    }
+}
 
 
 
-    const prompt =
-        promptBox.value.trim();
+const prompt =
+promptBox.value.trim();
 
 
 
-    if(prompt === ""){
+if(!prompt){
 
-        alert("Enter startup idea");
-        return;
+alert(
+"Enter startup idea"
+);
 
-    }
+return;
 
-
-
-    if(button){
-
-        button.disabled = true;
-        button.innerHTML =
-            "Generating...";
-
-    }
+}
 
 
 
-    if(progress){
-
-        progress.max =
-            agents.length;
-
-        progress.value = 0;
-
-    }
+const button =
+document.getElementById("generateBtn");
 
 
 
+if(button){
 
-    for(let i = 0; i < agents.length; i++){
+button.disabled=true;
 
+button.innerHTML=
+"Creating Startup...";
 
-        await runAgent(
-            agents[i],
-            prompt
-        );
-
-
-        if(progress){
-
-            progress.value =
-                i + 1;
-
-        }
-
-
-    }
+}
 
 
 
+// Generate using engine
 
-    if(button){
-
-        button.disabled = false;
-
-        button.innerHTML =
-            "Generate Startup";
-
-    }
+const startup =
+AgentX.saveIdea(prompt);
 
 
-// ================= SAVE STARTUP DATA =================
 
-const startupData = {
-    prompt: prompt,
-    generatedAt: new Date().toISOString(),
-    progress: 100
-};
+// progress
 
-agents.forEach(agent => {
+const progress =
+document.getElementById("progressBar");
 
-    const result = document.getElementById(`${agent}-result`);
 
-    startupData[agent] = result
-        ? result.innerHTML
-        : "";
+if(progress){
+
+progress.max=agents.length;
+
+progress.value=0;
+
+}
+
+
+
+// Run agents
+
+agents.forEach((agent,index)=>{
+
+
+runAgent(
+agent,
+startup
+);
+
+
+if(progress){
+
+setTimeout(()=>{
+
+progress.value=index+1;
+
+},500*index);
+
+}
+
 
 });
 
-// Optional fields for Overview page
-startupData.name = prompt;
-startupData.idea = prompt;
-startupData.industry = "Generated by AI";
-startupData.targetMarket = "";
-startupData.businessModel = "";
-startupData.problem = "";
-startupData.solution = "";
-startupData.tagline = "";
+
+
+
+// Save dashboard data
+
 
 localStorage.setItem(
-    "startupData",
-    JSON.stringify(startupData)
+"startupData",
+JSON.stringify(startup)
 );
 
-console.log("Startup saved:", startupData);
-    alert(
-        "🎉 Startup Generated Successfully!"
-    );
+
+
+setTimeout(()=>{
+
+
+if(button){
+
+button.disabled=false;
+
+button.innerHTML=
+"Generate Startup";
 
 }
 
 
 
-// ================= BUTTON CONNECTION =================
+alert(
+"🎉 AgentX Startup Generated!"
+);
+
+
+
+},agents.length*500);
+
+
+
+}
+
+
+
+
+// ================= BUTTON CONNECT =================
 
 
 document.addEventListener(
@@ -311,19 +337,21 @@ document.addEventListener(
 ()=>{
 
 
-    const button =
-        document.getElementById("generateBtn");
+const button =
+document.getElementById(
+"generateBtn"
+);
 
 
 
-    if(button){
+if(button){
 
-        button.addEventListener(
-            "click",
-            generateAll
-        );
+button.addEventListener(
+"click",
+generateAll
+);
 
-    }
+}
 
 
 });

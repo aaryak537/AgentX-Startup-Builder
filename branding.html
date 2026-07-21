@@ -138,116 +138,449 @@
 </div>
 <script src="engine.js"></script>
 <script src="script.js"></script>
-
+<script src="js/startupID.js"></script>
+<script type="module" src="js/dashboard.js"></script>
 <script type="module" src="js/Save.js"></script>
+<script type="module" src="js/Branding.js"></script>
 <script>
-(function () {
- const s =
-JSON.parse(localStorage.getItem("startupData")) || {};
-document.querySelector("[data-startup-name]").textContent =
-s.name || "AgentX";
+document.addEventListener("DOMContentLoaded", () => {
 
-s.name = s.name || "AgentX";
+    const startup = AgentX.loadStartup();
 
-s.tagline = s.tagline || "Building Tomorrow, Today";
+    if (!startup) {
+        console.error("Startup not found.");
+        return;
+    }
 
-s.initials = s.name
-.split(" ")
-.map(word => word[0])
-.join("")
-.substring(0,2)
-.toUpperCase();
+    AgentX.paintTopbarMeta(startup);
 
-s.category = s.category || "generic";
+    loadBranding(startup);
 
-s.icon = "🚀";
+});
 
-s.palette = s.palette || [
-"#2563EB",
-"#10B981",
-"#F8FAFC",
-"#111827"
-];
-    const p = s.palette;
-const prompt =
-encodeURIComponent(
-`Modern premium vector logo for ${s.name},
-blue gradient,
-minimal,
-AI startup,
-white background,
-flat design`
-);
 
-document.getElementById("logoBlock").innerHTML = `
-<img
-src="https://image.pollinations.ai/prompt/${prompt}"
-style="
-width:220px;
-height:220px;
-object-fit:contain;
-background:white;
-padding:20px;
-border-radius:18px;
-">
+// ================= LOAD BRANDING =================
 
-<div style="
-margin-top:12px;
-font-weight:700;
-font-size:18px;">
-${s.name}
-</div>
-`;
+function loadBranding(startup) {
+
+    const p = startup.palette || [
+        "#2563EB",
+        "#10B981",
+        "#F8FAFC",
+        "#111827"
+    ];
+
+
+    // ================= AI LOGO =================
+
+    const prompt = encodeURIComponent(
+
+        `Modern premium vector logo for ${startup.name},
+        minimal,
+        flat design,
+        startup branding,
+        ${startup.category},
+        white background`
+
+    );
+
+
+    const logoBlock = document.getElementById("logoBlock");
+
+    if (logoBlock) {
+
+        logoBlock.innerHTML = `
+
+        <img
+
+        src="https://image.pollinations.ai/prompt/${prompt}"
+
+        style="
+        width:220px;
+        height:220px;
+        object-fit:contain;
+        background:white;
+        border-radius:18px;
+        padding:20px;
+        ">
+
+        <div
+        style="
+        margin-top:12px;
+        font-weight:700;
+        font-size:18px;
+        ">
+
+        ${startup.name}
+
+        </div>
+
+        `;
+
+    }
+
+
+
+    // ================= LOGO VARIANTS =================
 
     const variants = [
-        { bg: p[0], text: "#fff" },
-        { bg: p[2] || "#fff", text: p[3] || "#111" },
-        { bg: "transparent", text: p[0], border: `1px solid ${p[0]}` },
+
+        {
+
+            bg:p[0],
+
+            text:"#fff"
+
+        },
+
+        {
+
+            bg:p[2],
+
+            text:p[3]
+
+        },
+
+        {
+
+            bg:"transparent",
+
+            text:p[0],
+
+            border:`1px solid ${p[0]}`
+
+        }
+
     ];
-    document.getElementById("variationRow").innerHTML = variants.map(v => `
-        <div class="v-card" style="background:${v.bg};color:${v.text};${v.border ? 'border:'+v.border : ''}">${s.initials}</div>
-    `).join("");
 
-    document.getElementById("bizCard").style.background = `linear-gradient(135deg, ${p[0]}, ${p[1]})`;
-    document.getElementById("bizCardName").textContent = s.name;
-    document.getElementById("bizCardEmail").textContent = "founder@" + s.name.toLowerCase().replace(/\s+/g, "") + ".com";
 
-    document.getElementById("swatches").innerHTML = p.map(hex => `
-        <div class="swatch" style="background:${hex}"><span>${hex}</span></div>
-    `).join("");
 
-    document.getElementById("voiceTagline").textContent = `"${s.tagline}"`;
-    const adjectives = { food: ["Warm", "Handcrafted", "Honest", "Inviting"], tech: ["Sharp", "Fast", "Reliable", "Ambitious"],
-        health: ["Caring", "Trustworthy", "Calm", "Precise"], fashion: ["Bold", "Refined", "Expressive", "Modern"],
-        fintech: ["Secure", "Clear", "Confident", "Smart"], education: ["Encouraging", "Clear", "Curious", "Supportive"],
-        travel: ["Adventurous", "Easygoing", "Curious", "Open"], eco: ["Grounded", "Hopeful", "Responsible", "Fresh"],
-        generic: ["Ambitious", "Clear", "Modern", "Dependable"] }[s.category] || ["Ambitious", "Clear", "Modern", "Dependable"];
-    document.getElementById("voiceAdjectives").innerHTML = adjectives.map(a => `<span class="chip">${a}</span>`).join("");
-    document.getElementById("voiceCaption").textContent = `${s.icon} Introducing ${s.name} — ${s.tagline} Follow along as we build something people actually want.`;
+    const variationRow =
 
-    document.getElementById("socialPreview").style.background = `linear-gradient(135deg, ${p[0]}, ${p[1]})`;
-    document.getElementById("socialHeadline").textContent = s.name;
-    document.getElementById("socialSub").textContent = s.tagline;
+        document.getElementById("variationRow");
 
-    document.getElementById("websitePreview").style.background = p[2] || "#f5f3ee";
-    document.getElementById("websitePreview").style.color = p[3] || "#111";
-    document.getElementById("webHeadline").textContent = s.tagline;
-    document.getElementById("webCta").style.background = p[0];
-    document.getElementById("webCta").style.color = "#fff";
-    document.getElementById("webCta").textContent = "Explore " + s.name;
 
-    const tabs = document.querySelectorAll("#tabRow button");
-    const panels = { identity: "tab-identity", palette: "tab-palette", type: "tab-type", voice: "tab-voice" };
-    tabs.forEach(btn => {
-        btn.addEventListener("click", () => {
-            tabs.forEach(b => b.classList.remove("active"));
+
+    if(variationRow){
+
+        variationRow.innerHTML =
+
+        variants.map(v=>`
+
+        <div
+
+        class="v-card"
+
+        style="
+        background:${v.bg};
+        color:${v.text};
+        ${v.border ? "border:"+v.border : ""}
+        ">
+
+        ${startup.initials}
+
+        </div>
+
+        `).join("");
+
+    }
+
+
+
+    // ================= BUSINESS CARD =================
+
+    const bizCard =
+
+        document.getElementById("bizCard");
+
+
+
+    if(bizCard){
+
+        bizCard.style.background=
+
+        `linear-gradient(
+        135deg,
+        ${p[0]},
+        ${p[1]}
+        )`;
+
+    }
+
+
+
+    document.getElementById("bizCardName").textContent =
+        startup.name;
+
+    document.getElementById("bizCardEmail").textContent =
+        "founder@" +
+        startup.name
+        .replace(/\s+/g,"")
+        .toLowerCase() +
+        ".com";
+
+
+
+    // ================= COLORS =================
+
+    const swatches =
+        document.getElementById("swatches");
+
+
+    if(swatches){
+
+        swatches.innerHTML =
+
+        p.map(color=>`
+
+        <div
+
+        class="swatch"
+
+        style="background:${color}">
+
+        <span>${color}</span>
+
+        </div>
+
+        `).join("");
+
+    }
+
+
+
+    // ================= BRAND VOICE =================
+
+    document.getElementById("voiceTagline").textContent =
+        `"${startup.tagline}"`;
+
+
+
+    const adjectives = {
+
+        food:[
+            "Warm",
+            "Fresh",
+            "Premium",
+            "Handcrafted"
+        ],
+
+        tech:[
+            "Modern",
+            "Reliable",
+            "Fast",
+            "Innovative"
+        ],
+
+        health:[
+            "Caring",
+            "Professional",
+            "Safe",
+            "Trusted"
+        ],
+
+        fashion:[
+            "Elegant",
+            "Premium",
+            "Bold",
+            "Modern"
+        ],
+
+        fintech:[
+            "Secure",
+            "Smart",
+            "Reliable",
+            "Professional"
+        ],
+
+        education:[
+            "Friendly",
+            "Educational",
+            "Simple",
+            "Encouraging"
+        ],
+
+        travel:[
+            "Adventure",
+            "Comfort",
+            "Freedom",
+            "Explore"
+        ],
+
+        eco:[
+            "Green",
+            "Clean",
+            "Future",
+            "Sustainable"
+        ],
+
+        generic:[
+            "Professional",
+            "Modern",
+            "Ambitious",
+            "Creative"
+        ]
+
+    }[startup.category] || [
+
+        "Professional",
+
+        "Modern",
+
+        "Creative",
+
+        "Reliable"
+
+    ];
+
+
+
+    document.getElementById("voiceAdjectives").innerHTML =
+
+        adjectives.map(a=>`
+
+        <span class="chip">
+
+        ${a}
+
+        </span>
+
+        `).join("");
+
+
+
+    document.getElementById("voiceCaption").textContent =
+
+        `${startup.icon} Introducing ${startup.name} — ${startup.tagline}`;
+
+
+
+    // ================= SOCIAL PREVIEW =================
+
+    const social =
+
+        document.getElementById("socialPreview");
+
+
+
+    if(social){
+
+        social.style.background=
+
+        `linear-gradient(
+        135deg,
+        ${p[0]},
+        ${p[1]}
+        )`;
+
+    }
+
+
+
+    document.getElementById("socialHeadline").textContent =
+        startup.name;
+
+    document.getElementById("socialSub").textContent =
+        startup.tagline;
+
+
+
+    // ================= WEBSITE PREVIEW =================
+
+    const preview =
+
+        document.getElementById("websitePreview");
+
+
+
+    if(preview){
+
+        preview.style.background=p[2];
+
+        preview.style.color=p[3];
+
+    }
+
+
+
+    document.getElementById("webHeadline").textContent =
+        startup.tagline;
+
+
+
+    const cta =
+
+        document.getElementById("webCta");
+
+
+
+    if(cta){
+
+        cta.style.background=p[0];
+
+        cta.style.color="#fff";
+
+        cta.textContent="Explore "+startup.name;
+
+    }
+
+
+
+    // ================= TABS =================
+
+    const tabs =
+
+        document.querySelectorAll("#tabRow button");
+
+
+
+    const panels = {
+
+        identity:"tab-identity",
+
+        palette:"tab-palette",
+
+        type:"tab-type",
+
+        voice:"tab-voice"
+
+    };
+
+
+
+    tabs.forEach(btn=>{
+
+        btn.addEventListener("click",()=>{
+
+            tabs.forEach(
+
+                b=>b.classList.remove("active")
+
+            );
+
             btn.classList.add("active");
-            Object.values(panels).forEach(id => document.getElementById(id).style.display = "none");
-            document.getElementById(panels[btn.dataset.tab]).style.display = "block";
-        });
-    });
-})();
-</script>
 
+            Object.values(panels).forEach(id=>{
+
+                document.getElementById(id).style.display="none";
+
+            });
+
+            document.getElementById(
+
+                panels[btn.dataset.tab]
+
+            ).style.display="block";
+
+        });
+
+    });
+
+
+
+    console.log("Branding Loaded",startup);
+
+}
+</script>
 </body>
 </html>

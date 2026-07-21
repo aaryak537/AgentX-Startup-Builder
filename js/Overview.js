@@ -1,117 +1,223 @@
 document.addEventListener("DOMContentLoaded", () => {
+    const startup = AgentX.loadStartup();
 
-    const s = AgentX.loadStartup();
-
-    if (!s) {
-        console.error("No startup data found.");
+    if (!startup) {
+        console.error("Startup not found.");
         return;
     }
 
-    loadOverview(s);
-
+    AgentX.paintTopbarMeta(startup);
+    loadOverview(startup);
 });
 
+// ==========================================
+// LOAD OVERVIEW
+// ==========================================
 
-function loadOverview(s){
+function loadOverview(startup) {
 
     const setText = (id, value) => {
-
         const el = document.getElementById(id);
-
-        if(el){
+        if (el) {
             el.textContent = value ?? "";
         }
-        else{
-            console.warn("Missing ID:", id);
-        }
-
     };
 
+    // ==========================================
+    // BASIC INFO
+    // ==========================================
 
-    setText("startupTagline", s.tagline);
+    setText("startupName", startup.name);
+    setText("startupTagline", startup.tagline);
+    setText("logoInitials", startup.initials);
+    setText("logoName", startup.name);
 
-    setText("scoreVal", s.score);
+    setText("scoreVal", startup.score);
+    setText("readyPct", startup.launchReadiness + "%");
 
-    setText("logoInitials", s.initials);
+    setText(
+        "startupId",
+        startup.startupId ||
+        "AGX-" + String(Date.now()).slice(-6)
+    );
 
-    setText("logoName", s.name);
+    setText(
+        "engineVersion",
+        startup.engineVersion || "AgentX AI Engine v1.0"
+    );
+
+    // ==========================================
+    // SUMMARY
+    // ==========================================
 
     setText(
         "summaryText",
-        s.businessPlan?.executiveSummary || "AI Generated Startup"
+        startup.businessPlan?.executiveSummary ||
+        "AI Generated Startup."
     );
 
+    // ==========================================
+    // MARKET
+    // ==========================================
 
     setText(
         "marketLabelText",
-        s.marketLabel
+        startup.marketLabel || "Market Opportunity"
     );
-
 
     setText(
         "marketSizeText",
-        "$" + s.marketSize + "B"
+        "$" + (startup.marketSize || 0) + "B"
     );
 
+    // ==========================================
+    // FINANCIAL
+    // ==========================================
 
-    setText(
-        "fhInvestment",
-        AgentX.fmtMoney(s.financial?.investment || 0)
-    );
+    if (startup.financial) {
 
+        setText(
+            "fhInvestment",
+            AgentX.fmtMoney(startup.financial.investment)
+        );
 
-    setText(
-        "fhRevenue",
-        AgentX.fmtMoney(s.financial?.revenueY1 || 0)
-    );
+        setText(
+            "fhRevenue",
+            AgentX.fmtMoney(startup.financial.revenueY1)
+        );
 
+        const margin = Math.round(
+            (startup.financial.netProfitY1 /
+                startup.financial.revenueY1) * 100
+        );
 
-    setText(
-        "fhMargin",
-        Math.round(
-            ((s.financial?.netProfitY1 || 0) /
-            (s.financial?.revenueY1 || 1)) * 100
-        ) + "%"
-    );
+        setText(
+            "fhMargin",
+            margin + "%"
+        );
+    }
 
-
-    setText(
-        "readyPct",
-        s.launchReadiness + "%"
-    );
-
+    // ==========================================
+    // CATEGORY CHIPS
+    // ==========================================
 
     const chipRow = document.getElementById("chipRow");
 
-    if(chipRow){
-        chipRow.innerHTML =
-        `
-        <span class="chip">${s.icon} ${s.category}</span>
-        <span class="chip">Score ${s.score}/100</span>
-        <span class="chip">${s.launchReadiness}% launch-ready</span>
+    if (chipRow) {
+
+        chipRow.innerHTML = `
+            <span class="chip">
+                ${startup.icon} ${startup.category}
+            </span>
+
+            <span class="chip">
+                ⭐ ${startup.score}/100
+            </span>
+
+            <span class="chip">
+                🚀 ${startup.launchReadiness}% Ready
+            </span>
         `;
     }
 
+    // ==========================================
+    // LOGO CARD
+    // ==========================================
 
     const logoPlate = document.getElementById("logoPlate");
 
-    if(logoPlate && s.palette){
-        logoPlate.style.background =
-        `linear-gradient(135deg,${s.palette[0]},${s.palette[1]})`;
+    if (logoPlate && startup.palette?.length >= 2) {
+
+        logoPlate.style.background = `
+            linear-gradient(
+                135deg,
+                ${startup.palette[0]},
+                ${startup.palette[1]}
+            )
+        `;
     }
 
+    // ==========================================
+    // SCORE RINGS
+    // ==========================================
 
     const scoreRing = document.getElementById("scoreRing");
 
-    if(scoreRing){
-        scoreRing.style.setProperty("--p",s.score);
+    if (scoreRing) {
+        scoreRing.style.setProperty("--p", startup.score);
     }
-
 
     const readyRing = document.getElementById("readyRing");
 
-    if(readyRing){
-        readyRing.style.setProperty("--p",s.launchReadiness);
+    if (readyRing) {
+        readyRing.style.setProperty(
+            "--p",
+            startup.launchReadiness
+        );
     }
 
+    // ==========================================
+    // COMPETITORS
+    // ==========================================
+
+    const competitorList =
+        document.getElementById("competitorList");
+
+    if (competitorList && startup.competitors) {
+
+        competitorList.innerHTML = "";
+
+        startup.competitors.forEach(c => {
+
+            competitorList.innerHTML += `
+                <div class="competitor-item">
+                    <strong>${c.name}</strong>
+                    <span>${c.tag}</span>
+                </div>
+            `;
+        });
+    }
+
+    // ==========================================
+    // MINI MARKET BARS
+    // ==========================================
+
+    const miniBars =
+        document.getElementById("miniBars");
+
+    if (miniBars && startup.financial?.revenueForecast) {
+
+        miniBars.innerHTML = "";
+
+        const max = Math.max(
+            ...startup.financial.revenueForecast
+        );
+
+        startup.financial.revenueForecast.forEach(value => {
+
+            const h = (value / max) * 100;
+
+            miniBars.innerHTML += `
+                <div class="bar"
+                     style="height:${h}%">
+                </div>
+            `;
+        });
+    }
+
+    // ==========================================
+    // GENERATED DATE
+    // ==========================================
+
+    const generated =
+        document.getElementById("generatedAt");
+
+    if (generated && startup.generatedAt) {
+
+        generated.textContent =
+            new Date(startup.generatedAt)
+                .toLocaleString();
+    }
+
+    console.log("Overview Loaded", startup);
 }

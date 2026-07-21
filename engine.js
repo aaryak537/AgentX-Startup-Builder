@@ -5,9 +5,8 @@ window.AgentX = (() => {
   const PROGRESS_KEY = "agentx_progress";
 
   const DEFAULT_IDEA = "I want to start a bakery.";
+  const VERSION = "AgentX AI Engine v1.0";
 
-  /* ---------------- seeded random (so the same idea always
-     generates the same result, but different ideas differ) ------------- */
   function hashString(str) {
     let h = 1779033703 ^ str.length;
     for (let i = 0; i < str.length; i++) {
@@ -177,6 +176,8 @@ window.AgentX = (() => {
 
   function generateStartup(idea) {
     const category = detectCategory(idea);
+    const startupId =
+"AGX-" + Date.now().toString().slice(-6);
     const cat = CATEGORIES[category];
     const rng = makeRng(idea + "::" + category);
 
@@ -244,16 +245,90 @@ window.AgentX = (() => {
       { name: "Website Files", type: "DOC", meta: "Complete Code", color: "blue" },
       { name: "Logo Assets", type: "PNG", meta: "Full Pack", color: "teal" },
     ];
+const brandingAgent = {
 
-    return {
-      idea,
-      category,
-      icon: cat.icon,
-      palette: cat.palette,
-      name,
-      initials,
-      tagline,
-      marketLabel: cat.marketLabel,
+logo:
+`${name} logo with ${cat.icon} icon, premium startup identity`,
+
+colors:
+cat.palette,
+
+brandVoice:
+"Modern, trustworthy, customer-focused",
+
+};
+
+const marketingAgent = {
+
+strategy:[
+"Social media marketing",
+"Local partnership campaigns",
+"Influencer collaborations",
+"Festival offers"
+],
+
+targetAudience:
+"Young customers and local communities"
+
+};
+
+
+const socialAgent = {
+
+posts:[
+`Welcome to ${name}! Fresh ideas delivered 🚀`,
+`Experience quality products made with passion ❤️`,
+`${name} is redefining the ${category} industry`
+]
+
+};
+
+
+const swotAgent = {
+
+strengths:[
+"Unique customer experience",
+"Strong branding",
+"Scalable business model"
+],
+
+weaknesses:[
+"Initial investment requirement",
+"Market competition"
+],
+
+opportunities:[
+"Online expansion",
+"Digital marketing growth"
+],
+
+threats:[
+"Large competitors",
+"Changing customer trends"
+]
+
+};
+return {
+
+  startupId,
+
+  engineVersion: VERSION,
+
+  idea,
+
+  category,
+
+  icon: cat.icon,
+
+  palette: cat.palette,
+
+  name,
+
+  initials,
+
+  tagline,
+
+  marketLabel: cat.marketLabel,
       marketSize,
       cagr,
       competitors,
@@ -270,6 +345,36 @@ window.AgentX = (() => {
       launchReadiness,
       businessPlan,
       deliverables,
+      branding: brandingAgent,
+
+marketing: marketingAgent,
+
+socialMedia: socialAgent,
+
+swot: swotAgent,
+
+agents:[
+{
+name:"Market Research Agent",
+status:"Completed"
+},
+{
+name:"Branding Agent",
+status:"Completed"
+},
+{
+name:"Finance Agent",
+status:"Completed"
+},
+{
+name:"Marketing Agent",
+status:"Completed"
+},
+{
+name:"Social Media Agent",
+status:"Completed"
+}
+],
       generatedAt: Date.now(),
     };
   }
@@ -328,3 +433,17 @@ return {
     CATEGORIES,
   };
 })();
+/*async generateStartup(prompt){
+
+const aiResponse =
+await fetch("/api/generate",{
+method:"POST",
+body:
+JSON.stringify({
+prompt
+})
+});
+
+return await aiResponse.json();
+
+} */
