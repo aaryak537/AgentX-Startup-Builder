@@ -1,347 +1,457 @@
 # 🚀 AgentX Startup Builder
 
-> **One Prompt. Complete Startup.**
-> An AI-powered multi-agent platform that transforms a single startup idea into a complete business plan, branding strategy, financial model, marketing plan, and website content using Agentic AI.
+<p align="center">
+  <img src="images/agentX.jpeg" alt="AgentX Logo" width="180"/>
+</p>
+
+<h3 align="center">
+One Prompt. Complete Startup.
+</h3>
+
+<p align="center">
+AI-powered Multi-Agent Startup Generator that transforms an idea into a complete business in minutes.
+</p>
 
 ---
 
-## 🌐 Live Demo
+## 🌟 Overview
 
-**Website:** https://aaryak537.github.io/AgentX-Startup-Builder/
+AgentX Startup Builder is an AI-powered multi-agent platform built for entrepreneurs, students, and innovators.
 
----
+Instead of manually researching, planning, branding, and marketing a startup, users simply enter **one startup idea**.
 
-## 📂 GitHub Repository
+Our AI agents collaborate to generate an entire startup package including:
 
-**Repository:** https://github.com/aaryak537/AgentX-Startup-Builder
-
----
-
-# 📖 Project Overview
-
-AgentX Startup Builder is an intelligent multi-agent AI platform that helps aspiring entrepreneurs launch a startup from just one idea.
-
-Instead of manually researching markets, creating branding, estimating finances, planning marketing campaigns, and writing business plans, users simply enter a startup idea, and multiple AI agents collaborate to generate a complete startup package within seconds.
-
-Example Prompt:
-
-> **"I want to start an organic bakery in Pune."**
-
-The AI automatically generates:
-
-* 📊 Market Research
-* 💰 Financial Planning
-* 🎨 Branding
-* 📄 Business Plan
-* 📢 Marketing Strategy
-* 📱 Social Media Content
-* 🌐 Website Content
-* 📈 Startup Score
-* 📑 Downloadable Report
+- 📊 Market Research
+- 🎨 Branding
+- 💼 Business Plan
+- 💰 Financial Forecast
+- 📢 Marketing Strategy
+- 📱 Social Media Campaign
+- 🌐 Website Content
+- 🎤 Investor Pitch Deck
+- 🧠 AI Startup Assistant
 
 ---
 
-# 🎯 Problem Statement
+# ✨ Features
 
-Starting a business requires expertise in multiple domains including finance, branding, marketing, business planning, and market analysis.
+## 🤖 Multi-Agent AI System
 
-Most entrepreneurs:
+Each AI agent specializes in one business domain.
 
-* Don't know where to begin
-* Spend weeks researching
-* Hire expensive consultants
-* Create documents manually
-
-AgentX automates the entire startup planning workflow using Agentic AI.
-
----
-
-# 💡 Solution
-
-AgentX uses multiple specialized AI agents coordinated by an AI Orchestrator.
-
-Each AI agent performs a dedicated task independently before combining all outputs into one complete startup report.
+- 🔍 Market Research Agent
+- 🎨 Branding Agent
+- 💼 Business Planning Agent
+- 💵 Financial Agent
+- 📈 Marketing Agent
+- 📱 Social Media Agent
+- 🌐 Website Generator Agent
+- 🛡 Risk Analysis Agent
+- 🧠 Startup Advisor Agent
+- 💬 AI Startup Chatbot
 
 ---
 
-# 🧠 AI Agents
+## 🧠 AI Startup Chatbot
 
-## 🧠 AI Orchestrator
+Supports:
 
-Coordinates all AI agents and combines results.
-
----
-
-## 📊 Market Research Agent
-
-* Competitor Analysis
-* Market Size
-* SWOT Analysis
-* Target Audience
-* Industry Trends
+- Startup Q&A
+- Business Advice
+- 10+ Languages
+- Startup Context Memory
+- Voice Commands
+- Floating Assistant
 
 ---
 
-## 🎨 Branding Agent
+## 🧪 Self-Correcting AI Code Generator
 
-* Business Name
-* Logo Prompt
-* Brand Colors
-* Typography
-* Slogan
+Our autonomous coding agent can:
 
----
-
-## 💰 Finance Agent
-
-* Startup Cost
-* Revenue Forecast
-* Profit Projection
-* Pricing Strategy
-* Break-even Analysis
+- Generate Code
+- Execute inside Docker Sandbox
+- Parse Runtime Errors
+- Retry Automatically
+- Fix Bugs
+- Improve Code Quality
 
 ---
 
-## 📄 Business Plan Agent
+## 🎙 Voice Command Navigation
 
-* Executive Summary
-* Mission
-* Vision
-* Goals
-* Business Model
+Navigate the website using voice.
 
----
+Examples:
 
-## 📢 Marketing Agent
-
-* Marketing Strategy
-* SEO Plan
-* Advertising Ideas
-* Campaign Suggestions
+- "Open Dashboard"
+- "Generate Branding"
+- "Go to Financial Plan"
+- "Create Business Plan"
 
 ---
 
-## 📱 Social Media Agent
+## 📈 AI Generated Reports
 
-* Instagram Posts
-* LinkedIn Content
-* Facebook Posts
-* Hashtags
-* YouTube Video Ideas
+Generate:
 
----
-
-## 🌐 Website Agent
-
-Generates:
-
-* Landing Page Content
-* Hero Section
-* Features
-* Call-To-Action
-* Website Structure
+- SWOT Analysis
+- Competitor Analysis
+- Revenue Prediction
+- Market Size
+- Customer Personas
+- Pricing Strategy
+- Launch Roadmap
 
 ---
 
-# 🏗️ System Architecture
+## 📄 Export Options
 
-```text
-                 User Prompt
-                      │
-                      ▼
-              AI Orchestrator
-                      │
- ┌──────────┬──────────┬──────────┬──────────┐
- │          │          │          │          │
- ▼          ▼          ▼          ▼          ▼
-Market   Branding  Finance  Marketing  Business
-Agent     Agent     Agent      Agent      Agent
- │
- ▼
-Social Media Agent
- │
- ▼
-Website Agent
- │
- ▼
-Combined Startup Report
- │
- ▼
-Interactive Dashboard
+- PDF Reports
+- Startup Summary
+- Business Plan
+- Branding Guide
+- Financial Reports
+
+---
+
+# 🏗 Architecture
+
+```
+                User
+                  │
+                  ▼
+          Startup Idea Input
+                  │
+                  ▼
+        Multi-Agent Orchestrator
+                  │
+────────────────────────────────────────────
+│         │         │         │            │
+▼         ▼         ▼         ▼            ▼
+
+Market   Branding Business Finance Marketing
+
+▼         ▼         ▼         ▼            ▼
+
+Research Logo     Plan     Forecast Campaign
+
+────────────────────────────────────────────
+
+                  │
+                  ▼
+
+      AI Startup Knowledge Base
+
+                  │
+                  ▼
+
+        Final Startup Report
 ```
 
 ---
 
-# 🚀 Features
+# 🖥 Tech Stack
 
-* Multi-Agent AI Architecture
-* AI Startup Planner
-* Startup Score Generator
-* Business Plan Generator
-* Market Research
-* Financial Forecasting
-* Revenue Prediction
-* Competitor Analysis
-* Branding Generator
-* Logo Prompt Generator
-* Marketing Planner
-* Social Media Generator
-* Website Content Generator
-* Interactive Dashboard
-* Beautiful Glassmorphism UI
-* Responsive Design
-* PDF Report Export
-* Real-Time AI Workflow
+### Frontend
 
----
+- HTML5
+- CSS3
+- JavaScript
 
-# 🛠️ Tech Stack
+### Backend
 
-## Frontend
+- Node.js
+- Express.js
 
-* HTML5
-* CSS3
-* JavaScript (ES6)
+### AI
 
-## AI
+- OpenRouter API
+- Multi-Agent Architecture
+- Prompt Engineering
 
-* OpenRouter API
-* OpenAI Compatible Models
+### Database
 
-## Database
+- Firebase Authentication
+- Firestore Database
 
-* SQLite
+### Deployment
 
+- Netlify
+- GitHub
+
+### Tools
+
+- Docker
+- Git
+- GitHub
+- VS Code
 
 ---
 
-# 📁 Project Structure
+# 📂 Project Structure
 
-```text
-AgentX-Startup-Builder
+```
+AgentX-Startup-Builder/
+
 │
-├── frontend
-├── backend
-├── assets
-├── outputs
-├── docs
-├── app.py
-├── requirements.txt
-├── README.md
-└── .env
+├── frontend/
+│
+├── backend/
+│
+├── agents/
+│   ├── brandingAgent.js
+│   ├── marketResearch.js
+│   ├── financeAgent.js
+│   ├── marketingAgent.js
+│   ├── websiteAgent.js
+│   ├── chatbotAgent.js
+│   └── orchestrator.js
+│
+├── public/
+│
+├── assets/
+│
+├── firebase/
+│
+├── docs/
+│
+├── package.json
+│
+└── README.md
 ```
 
 ---
 
-# ⚙️ Installation
+# 🚀 Installation
 
-Clone the repository
+## Clone Repository
 
 ```bash
 git clone https://github.com/aaryak537/AgentX-Startup-Builder.git
 ```
 
-Go to project folder
+---
+
+## Enter Project
 
 ```bash
 cd AgentX-Startup-Builder
 ```
 
-Install dependencies
+---
+
+## Install Dependencies
 
 ```bash
-pip install -r requirements.txt
+npm install
 ```
 
-Run the backend
+---
+
+## Create Environment Variables
+
+Create a `.env` file.
+
+```env
+OPENROUTER_API_KEY=your_key
+
+FIREBASE_API_KEY=your_key
+
+FIREBASE_AUTH_DOMAIN=your_domain
+
+FIREBASE_PROJECT_ID=your_project
+
+FIREBASE_STORAGE_BUCKET=your_bucket
+
+FIREBASE_MESSAGING_SENDER_ID=your_sender
+
+FIREBASE_APP_ID=your_app
+```
+
+---
+
+## Run Project
 
 ```bash
-python app.py
+npm start
 ```
 
-Open the frontend
+or
 
-```text
-frontend/index.html
-```
-
----
-
-# 🔄 Workflow
-
-```text
-User enters startup idea
-          │
-          ▼
-AI Orchestrator
-          │
-          ▼
-Multiple AI Agents
-          │
-          ▼
-Generate Business Assets
-          │
-          ▼
-Interactive Dashboard
-          │
-          ▼
-Download Startup Report
+```bash
+node backend/server.js
 ```
 
 ---
 
-# 📊 Future Enhancements
+# 📸 Screenshots
 
-* Voice-Based Startup Planning
-* AI Pitch Deck Generator
-* Investor Matching
-* AI Chat Assistant
-* Team Collaboration
-* CRM Integration
-* Cloud Deployment
-* Mobile Application
-* Multi-language Support
+- Landing Page
+- Dashboard
+- Startup Overview
+- Branding Page
+- Financial Dashboard
+- AI Chatbot
+- Voice Navigation
 
----
-
-# 👨‍💻 Team
-
-| Name             | Student ID                  | Role                                    |
-| ---------------- | --------------------------- | --------------------------------------- |
-| Aarya Kadam      | **aaryak537**               | Team Leader • AI Integration            |
-| Anushka Khengare | **anushkakhengare8-dotcom** | Full Stack Developer                    |
-
-> Replace the names and IDs above with your team's actual details.
+*(Add screenshots here)*
 
 ---
 
-# 🏆 Hackathon
+# 🎯 Hackathon Innovation
 
-**Project:** AgentX Startup Builder
+## Problem
 
-**Domain:** Agentic AI
+Starting a business requires expertise in:
 
-**Category:** Startup Automation using Multi-Agent Artificial Intelligence
+- Finance
+- Marketing
+- Branding
+- Research
+- Strategy
+
+Most beginners don't know where to start.
+
+---
+
+## Solution
+
+AgentX automates the entire startup creation process using autonomous AI agents.
+
+Users simply enter:
+
+> "I want to start a bakery."
+
+Within minutes AgentX generates:
+
+- Business Name
+- Logo
+- Branding
+- Business Plan
+- Financial Forecast
+- Marketing Strategy
+- Website Content
+- Social Posts
+- Investor Pitch
+
+---
+
+# 🔥 Unique Features
+
+✅ Multi-Agent AI Architecture
+
+✅ Autonomous Planning
+
+✅ Self-Debugging Code Agent
+
+✅ Docker Sandbox Testing
+
+✅ AI Startup Chatbot
+
+✅ Voice Navigation
+
+✅ Live AI Progress
+
+✅ Business Report Generation
+
+✅ Startup Scoring
+
+---
+
+# 📊 Future Roadmap
+
+### Short-Term
+
+- AI Pitch Deck Generator
+- Investor Matching
+- Team Builder
+- Startup Analytics
+- Business Model Canvas
+
+### Long-Term
+
+- AI Startup Marketplace
+- Funding Recommendations
+- Patent Assistant
+- Legal Documentation
+- Global Startup Community
+- Mobile App
+- AI Business Coach
+
+---
+
+# 👥 Team AgentX
+
+### Team Name
+
+**AgentX**
+
+### Members
+
+- Aarya Kadam
+- Anushka Khengare
+
+---
+
+# 🏆 Built For
+
+Next-Gen AI Hackathon 2026
+
+Domain:
+**Agentic AI**
+
+---
+
+# 🤝 Contributing
+
+Contributions are welcome!
+
+1. Fork the project
+2. Create your feature branch
+
+```bash
+git checkout -b feature-name
+```
+
+3. Commit changes
+
+```bash
+git commit -m "Added new feature"
+```
+
+4. Push
+
+```bash
+git push origin feature-name
+```
+
+5. Open Pull Request
 
 ---
 
 # 📜 License
 
-This project is created for educational purposes and hackathon participation.
+This project is licensed under the MIT License.
 
 ---
 
-# 🙏 Acknowledgements
+# 💙 Acknowledgements
 
-* OpenRouter AI
-* OpenAI Compatible Models
-* HTML, CSS & JavaScript Community
-* GitHub
+- OpenRouter
+- Firebase
+- Node.js
+- Express.js
+- GitHub
+- Netlify
 
 ---
 
-## ⭐ Support
+<p align="center">
 
-If you like this project, please consider giving it a ⭐ on GitHub.
+⭐ If you like this project, give it a star!
 
-**Made with ❤️ by Team AgentX**
+Made with ❤️ by Team AgentX
+
+</p>
