@@ -196,26 +196,60 @@ Research Logo     Plan     Forecast Campaign
 AgentX-Startup-Builder/
 
 │
-├── frontend/
+├── index.html
+├── loginPage.html
+├── signupPage.html
+├── about.html
+├── contact.html
+├── features.html
+├── overview.html
+├── dashboard.html
+├── branding.html
+├── fininacial.httml
+├── kit.html
 │
+├── style.css
+├── workspace.css
+├── animation.css
+│
+├── js/
+│    ├── Overview.js
+│    ├── dashboard.js
+│    ├── Kit.js
+│    ├── financial.js
+│    ├── Save.js
+│    ├── startupID.js
+|
 ├── backend/
+│    ├── ai/
+│    ├── chatbot/
+│    ├── database/
+│    ├── routes/
+│    ├── sandbox/
+│         ├── temp/
+│              ├── DockerFile
+│              ├── runner.js
+│    ├── exports/
+│         ├── pdf.js
+│    ├── agents/
+│       ├── brandingAgent.js
+│       ├── marketResearch.js
+│       ├── financeAgent.js
+│       ├── marketingAgent.js
+│       ├── websiteAgent.js
+│       ├── chatbotAgent.js
+│       └── orchestrator.js
 │
-├── agents/
-│   ├── brandingAgent.js
-│   ├── marketResearch.js
-│   ├── financeAgent.js
-│   ├── marketingAgent.js
-│   ├── websiteAgent.js
-│   ├── chatbotAgent.js
-│   └── orchestrator.js
 │
-├── public/
-│
-├── assets/
-│
+├── images/
+│    ├── agentX.jpeg
+│    ├── logo.jpeg
+│    ├── google.png
+│    
 ├── firebase/
-│
-├── docs/
+│    ├── firebaseConfig.js
+│    ├── firebaseAdmin.js
+│    ├──Authentication.js
 │
 ├── package.json
 │
@@ -275,7 +309,6 @@ node backend/server.js
 - AI Chatbot
 - Voice Navigation
 
-*(Add screenshots here)*
 
 ---
 
