@@ -250,27 +250,6 @@ npm install
 
 ---
 
-## Create Environment Variables
-
-Create a `.env` file.
-
-```env
-OPENROUTER_API_KEY=your_key
-
-FIREBASE_API_KEY=your_key
-
-FIREBASE_AUTH_DOMAIN=your_domain
-
-FIREBASE_PROJECT_ID=your_project
-
-FIREBASE_STORAGE_BUCKET=your_bucket
-
-FIREBASE_MESSAGING_SENDER_ID=your_sender
-
-FIREBASE_APP_ID=your_app
-```
-
----
 
 ## Run Project
 
